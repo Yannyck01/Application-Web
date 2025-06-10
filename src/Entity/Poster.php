@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
-use Exception\EntityNotFoundException;
+use Entity\Exception\EntityNotFoundException;
 
 class Poster
 {
