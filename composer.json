@@ -14,5 +14,20 @@
             "email": "raphael.waymel-beviere@etudiant.univ-reims.fr"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    },
+    "scripts": {
+        "start:linux": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.sh"
+        ],
+        "start:windows": [
+            "Composer\\Config::disableProcessTimeout",
+            "bin/run-server.bat"
+        ]
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.75"
+    }
 }
