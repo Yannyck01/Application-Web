@@ -2,6 +2,9 @@
 declare(strict_types=1);
 
 
+use Entity\Exception\EntityNotFoundException;
+use Entity\Game;
+use Html\WebPage;
 
 if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
     $categoryId = $_GET['idCtg'];
@@ -11,13 +14,13 @@ if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
 }
 
 try{
-    $category = Game::fincByCategoryId((int)$categoryId);
+    $category = Game::findByCategoryId((int)$categoryId);
 
-} catch(\Entity\Exception\EntityNotFoundException $e) {
+} catch(EntityNotFoundException $e) {
     header('HTTP/1.1 404 Not Found');
     exit();
 }
-$categoryPage = new \Html\WebPage("Jeux vidéo : ");
+$categoryPage = new WebPage("Jeux vidéo : ");
 
 $categoryPage->appendContent("<div class='list'>");
 foreach ($category as $game){
