@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 use PDO;
 
 class Game
@@ -145,6 +146,10 @@ class Game
         );
         $request->execute([":id" => $genreId]);
         $res=$request->fetchAll(PDO::FETCH_CLASS,Game::class);
+
+        if (!$res)
+            throw new EntityNotFoundException("ID $genreId not found");
+
         return $res;
     }
 
@@ -159,6 +164,10 @@ class Game
 SQL);
         $requestCtg->execute([":idCtg"=> $categoryId]);
         $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Game::class);
+
+        if (!$res)
+            throw new EntityNotFoundException("ID $categoryId not found");
+
         return $res;
 
     }
