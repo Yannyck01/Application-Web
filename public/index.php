@@ -20,7 +20,7 @@ foreach ($genres as $genre) {
 }
 $pageTest->appendContent("<h1>Catégories</h1>");
 foreach ($categories as $category) {
-    $pageTest->appendContent("<p><a href='category.php?categoryId={$category->getId()}'><br>{$pageTest->escapeString($category->getDescription())}</a></p><br>");
+    $pageTest->appendContent("<p><a href='category.php?idCtg={$category->getId()}'><br>{$pageTest->escapeString($category->getDescription())}</a></p><br>");
 }
 
 echo $pageTest->toHTML();

@@ -1,29 +1,35 @@
 <?php
 declare(strict_types=1);
 
-use Database\MyPdo;
-use Entity\Game;
-use Html\AppWebPage;
-use html\WebPage;
 
-if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
-    $genred = $_GET['genreId'];
+use Entity\Exception\EntityNotFoundException;
+use Entity\Game;
+use Html\WebPage;
+
+if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
+    $categoryId = $_GET['idCtg'];
 } else {
     header('Location: index.php', true, 302);
     exit();
 }
 
+try{
+    $category = Game::findByCategoryId((int)$categoryId);
 
-$games=Game::findByGenreId((int)$genred);
-$webPage = new AppWebPage("Jeux vidéo : ");
+} catch(EntityNotFoundException $e) {
+    header('HTTP/1.1 404 Not Found');
+    exit();
+}
+$categoryPage = new WebPage("Jeux vidéo : ");
 
-$webPage->appendContent('<div class="list">');
-foreach ($games as $game) {
+$categoryPage->appendContent("<div class='list'>");
+foreach ($category as $game){
+
     $year = $game->getReleaseYear();
     $title = $game->getName();
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
-    $webPage->appendContent(<<<HTML
+    $categoryPage->appendContent(<<<HTML
                 <div class="game">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
@@ -32,9 +38,5 @@ foreach ($games as $game) {
                         <div class="game__desc">$description</div>
                     </div>
                 </div>
-\n
 HTML);
 }
-$webPage->appendContent("</div>");
-echo $webPage->toHTML();
-
