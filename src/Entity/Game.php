@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use PDO;
+
 class Game
 {
     private int $id;
@@ -127,5 +130,18 @@ class Game
         $this->posterId = $posterId;
     }
 
+    public static function findByGenreId(int $genreId): array
+    {
+
+        $request = MyPdo::getInstance()->prepare(<<< 'SQL'
+            SELECT *
+            FROM genre
+            WHERE id = :id
+            SQL
+        );
+        $request->execute([":id" => $genreId]);
+        $request->fetchAll(PDO::FETCH_CLASS,Game::class);
+        return $request;
+    }
 
 }
