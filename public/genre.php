@@ -7,14 +7,14 @@ use Html\AppWebPage;
 use html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
-    $categoryId = $_GET['genreId'];
+    $genred = $_GET['genreId'];
 } else {
     header('Location: index.php', true, 302);
     exit();
 }
 
 
-$games=Game::findByGenreId((int)$categoryId);
+$games=Game::findByGenreId((int)$genred);
 $webPage = new AppWebPage("Jeux vidéo : ");
 
 $webPage->appendContent('<div class="list">');
