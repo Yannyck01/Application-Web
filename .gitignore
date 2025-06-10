@@ -1,0 +1,7 @@
+*.*swp*
+*.tmp
+*~
+*.php-cs-fixer.cache
+
+/vendor/
+/.idea
