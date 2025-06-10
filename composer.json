@@ -1,0 +1,18 @@
+{
+    "name": "waym0002/sae2-01",
+    "description": "SAÉ 2.01 - Développement d’une application",
+    "type": "project",
+    "license": "WTFPL",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Raphaël WAYMEL",
+            "email": "raphael.waymel-beviere@etudiant.univ-reims.fr"
+        }
+    ],
+    "require": {}
+}
