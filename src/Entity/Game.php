@@ -16,8 +16,8 @@ class Game
     protected int $windows;
     protected int $linux;
     protected int $mac;
-    protected int $metacritic;
-    protected int $developerId;
+    protected ?int $metacritic;
+    protected ?int $developerId;
     protected int $posterId;
 
     public function getId(): int
@@ -100,12 +100,12 @@ class Game
         $this->mac = $mac;
     }
 
-    public function getMetacritic(): int
+    public function getMetacritic(): ?int
     {
         return $this->metacritic;
     }
 
-    public function setMetacritic(int $metacritic): void
+    public function setMetacritic(?int $metacritic): void
     {
         $this->metacritic = $metacritic;
     }
@@ -130,18 +130,22 @@ class Game
         $this->posterId = $posterId;
     }
 
+    /***
+     * @param int $genreId
+     * @return Game[]
+     */
     public static function findByGenreId(int $genreId): array
     {
-
-        $request = MyPdo::getInstance()->prepare(<<< 'SQL'
+        $request = MyPdo::getInstance()->prepare(<<< SQL
             SELECT *
-            FROM genre
-            WHERE id = :id
+            FROM game g 
+            JOIN game_genre gg ON g.id=gg.gameId
+            WHERE genreId = :id
             SQL
         );
         $request->execute([":id" => $genreId]);
-        $request->fetchAll(PDO::FETCH_CLASS,Game::class);
-        return $request;
+        $res=$request->fetchAll(PDO::FETCH_CLASS,Game::class);
+        return $res;
     }
 
 }
