@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
-use Html\WebPage;
+use Html\AppWebPage;
 
 if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
     $categoryId = $_GET['idCtg'];
@@ -20,7 +20,7 @@ try{
     header('HTTP/1.1 404 Not Found');
     exit();
 }
-$categoryPage = new WebPage("Jeux vidéo : ");
+$categoryPage = new AppWebPage("Jeux vidéo : ");
 
 $categoryPage->appendContent("<div class='list'>");
 foreach ($category as $game){
@@ -40,3 +40,5 @@ foreach ($category as $game){
                 </div>
 HTML);
 }
+$categoryPage->appendContent("</div>");
+echo $categoryPage->toHTML();

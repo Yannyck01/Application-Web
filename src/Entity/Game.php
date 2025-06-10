@@ -153,12 +153,12 @@ class Game
         $requestCtg = MyPdo::getInstance()->prepare(<<< SQL
         SELECT *
         FROM game g
-        JOIN game_category ctg ON g.id=ctg.id
+        JOIN game_category ctg ON g.id=ctg.gameId
         WHERE categoryId = :idCtg
 
 SQL);
         $requestCtg->execute([":idCtg"=> $categoryId]);
-        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Category::class);
+        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Game::class);
         return $res;
 
     }
