@@ -25,7 +25,7 @@ foreach ($games as $game) {
     $description = $game->getShortDescription();
     $webPage->appendContent(<<<HTML
                 <div class="game">
-                    <div class="game__cover"><img src="poster.php?coverId=$posterId"></div>
+                    <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
                         <div class="game__year">$year</div>
                         <div class="game__name">$title</div>
