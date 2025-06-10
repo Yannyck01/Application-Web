@@ -148,17 +148,17 @@ class Game
         return $res;
     }
 
-    public function findByCategoryId(int $categoryId)
+    public static function findByCategoryId(int $categoryId): array
     {
         $requestCtg = MyPdo::getInstance()->prepare(<<< SQL
         SELECT *
         FROM game g
         JOIN game_category ctg ON g.id=ctg.id
-        WHERE $categoryId = :idCtg
+        WHERE categoryId = :idCtg
 
 SQL);
         $requestCtg->execute([":idCtg"=> $categoryId]);
-        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,category::class);
+        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Category::class);
         return $res;
 
     }
