@@ -16,11 +16,11 @@ $genres = \Entity\Collection\GenreCollection::findAll();
 $categories = \Entity\Collection\CategoryCollection::findAll();
 
 foreach ($genres as $genre) {
-    $pageTest ->appendContent("<p><a href='genre?Id = {$genre->getId()}'><br>{$pageTest->escapeString($genre->getDescription())}</a></p><br>");
+    $pageTest ->appendContent("<p><a href='genre.php?genreId={$genre->getId()}'><br>{$pageTest->escapeString($genre->getDescription())}</a></p><br>");
 }
 $pageTest->appendContent("<h1>Catégories</h1>");
 foreach ($categories as $category) {
-    $pageTest->appendContent("<p><a href='category?Id = {$category->getId()}'><br>{$pageTest->escapeString($category->getDescription())}</a></p><br>");
+    $pageTest->appendContent("<p><a href='category.php?categoryId={$category->getId()}'><br>{$pageTest->escapeString($category->getDescription())}</a></p><br>");
 }
 
 echo $pageTest->toHTML();
