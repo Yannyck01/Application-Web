@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 use Html\WebPage;
-
-
 
 $pageTest = new WebPage("Test of the WebPage class");
 
