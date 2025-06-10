@@ -6,6 +6,7 @@ namespace Entity;
 class category
 {
     private int $id;
+    private string $description;
 
     public function getId(): int
     {
@@ -15,6 +16,16 @@ class category
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
 
