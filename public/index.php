@@ -10,8 +10,8 @@ $pageTest = new WebPage("Page d'accueil");
 $pageTest->appendCssUrl("css/style.css");
 
 $pageTest->appendContent(<<<HTML
-    <h1>Jeux vidéo</h1>");
-    <div class='list'>");
+    <h1>Jeux vidéo</h1>
+    <div class='list'>
         <div class='genre'><h1>Genres</h1>
 HTML);
 
