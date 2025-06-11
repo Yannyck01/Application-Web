@@ -76,7 +76,7 @@ class WebPage
 <html lang="fr">
     <head>
         <meta charset="UTF-8" name="viewport">
-        <title>{$this->title}</title>
+        <title>{$this->escapeString($this->title)}</title>
         {$this->head}
     </head>
     <body>
