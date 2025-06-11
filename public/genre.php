@@ -12,8 +12,10 @@ if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
 }
 
 
-$games=Game::findByGenreId((int)$genred);
-$webPage = new AppWebPage("Jeux vidéo : ");
+$games=Game::findByGenreId((int)$genreId);
+$webPage = new WebPage("Jeux vidéo : ");
+$webPage->appendCssUrl("css/style.css");
+$webPage->appendContent("<div class='header'> <h1>Jeux vidéo : </h1></div>");
 
 $webPage->appendContent('<div class="list">');
 foreach ($games as $game) {
