@@ -24,6 +24,9 @@ foreach ($games as $game) {
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
     $webPage->appendContent(<<<HTML
+                
+                
+                <link rel="stylesheet" href="public/css/style.css"/>
                 <div class="game">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
