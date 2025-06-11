@@ -47,7 +47,7 @@ class WebPage
 
     public function appendCssUrl(string $url): void
     {
-        $this->head = "$this->head<link href='$url' rel='stylesheet'>";
+        $this->appendToHead("<link rel=\"stylesheet\" href=\"$url\"/>");
 
     }
 
@@ -72,30 +72,22 @@ class WebPage
     public function toHTML(): string
     {
         $HTML = <<<HTML
-
-        <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <meta charset="UTF-8" name="viewport">
-                <title>{$this->title}</title>
-                {$this->head}
-          </head>
-          <body>
-            {$this->body}
-            
-            
-            
-            
-          </body>
-          <br>
-          {$this->getLastModification()}
-        </html>
-        
-        
-        HTML;
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" name="viewport">
+        <title>{$this->escapeString($this->title)}</title>
+        {$this->head}
+    </head>
+    <body>
+        {$this->body}
+        <div class="footer">
+            <i>Dernière modification de cette page le {$this->getLastModification()}</i>
+        </div>
+    </body>
+</html>
+HTML;
         return $HTML;
-
-
     }
 
     public function escapeString(string $string): string
@@ -105,6 +97,6 @@ class WebPage
 
     public function getLastModification(): string
     {
-        return date("F d Y H:i:s.", getlastmod());
+        return date("j/m/Y \à H:i:s", getlastmod());
     }
 }

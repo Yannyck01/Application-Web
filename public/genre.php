@@ -1,21 +1,28 @@
 <?php
 declare(strict_types=1);
 
-use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
-use Html\AppWebPage;
 use html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
-    $genred = $_GET['genreId'];
+    $genreId = $_GET['genreId'];
 } else {
     header('Location: index.php', true, 302);
     exit();
 }
 
+try{
+    $games=Game::findByGenreId((int)$genreId);
 
-$games=Game::findByGenreId((int)$genred);
-$webPage = new AppWebPage("Jeux vidéo : ");
+} catch(EntityNotFoundException $e) {
+    header('HTTP/1.1 404 Not Found');
+    exit();
+}
+
+$webPage = new WebPage("Jeux vidéo : ");
+$webPage->appendCssUrl("css/style.css");
+$webPage->appendContent("<div class='header'> <h1>Jeux vidéo : </h1></div>");
 
 $webPage->appendContent('<div class="list">');
 foreach ($games as $game) {
@@ -24,65 +31,6 @@ foreach ($games as $game) {
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
     $webPage->appendContent(<<<HTML
-                <style>
-                .game  {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: 1.5rem; /* space between image and text */
-                    padding: 1rem 2rem;
-                    border-radius: 10px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-                    transition: box-shadow 0.3s ease;
-                }
-                
-                /* Cover image container */
-                .game__cover {
-                    flex-shrink: 0; /* prevent shrinking */
-                    width: 20%;
-                    height: auto;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    background-color: #ffffff;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
-                }
-                .game__cover img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 12px;
-                }
-                .game__details {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    flex: 1;
-                }
-                .game__year {
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                    color: #5e1205;
-                    margin-bottom: 0.25rem;
-                }
-                .game__name {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    margin-bottom: 0.5rem;
-                    color: #210965;
-                }
-                .game__desc {
-                    font-size: 1rem;
-                    line-height: 1.4;
-                    color: rgba(2,44,33,0.88);
-                }
-                
-                
-                </style>
-                
-                <link rel="stylesheet" href="public/css/style.css"/>
                 <div class="game">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
