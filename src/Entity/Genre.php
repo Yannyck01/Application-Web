@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+
 class Genre
 {
     private int $id;
@@ -26,6 +28,17 @@ class Genre
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    public static function findById(int $id): Genre
+    {
+        $sql=MyPdo::getInstance()->prepare("SELECT * FROM genre WHERE id = :id");
+
+        $sql->execute(["id" => $id]);
+
+        $res=$sql->fetchObject(Genre::class);
+
+        return $res;
     }
 
 

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
+use Entity\Genre;
 use html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
@@ -20,9 +21,11 @@ try{
     exit();
 }
 
-$webPage = new WebPage("Jeux vidéo : ");
+$genreObject=Genre::findById((int) $genreId);
+$webPage = new WebPage();
+$webPage->setTitle("Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}");
 $webPage->appendCssUrl("css/style.css");
-$webPage->appendContent("<div class='header'> <h1>Jeux vidéo : </h1></div>");
+$webPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}</h1></div>");
 
 $webPage->appendContent('<div class="list">');
 foreach ($games as $game) {
