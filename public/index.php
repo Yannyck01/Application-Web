@@ -22,13 +22,15 @@ foreach ($genres as $genre) {
     $pageTest ->appendContent("<p><a href='genre.php?genreId={$genre->getId()}'>{$pageTest->escapeString($genre->getDescription())}</a></p>");
 }
 
-$pageTest->appendContent("</div>");
-$pageTest->appendContent("<div class='categories'><h1>Catégories</h1>");
+$pageTest->appendContent(<<<HTML
+        </div>
+        <div class='categories'><h1>Catégories</h1>
+ HTML);
 
 foreach ($categories as $category) {
     $pageTest->appendContent("<p><a href='category.php?idCtg={$category->getId()}'>{$pageTest->escapeString($category->getDescription())}</a></p>");
 }
-$pageTest->appendContent("</div>");
 
+$pageTest->appendContent("</div>");
 
 echo $pageTest->toHTML();
