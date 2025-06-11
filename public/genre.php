@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
 use html\WebPage;
 
@@ -11,8 +12,14 @@ if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
     exit();
 }
 
+try{
+    $games=Game::findByGenreId((int)$genreId);
 
-$games=Game::findByGenreId((int)$genreId);
+} catch(EntityNotFoundException $e) {
+    header('HTTP/1.1 404 Not Found');
+    exit();
+}
+
 $webPage = new WebPage("Jeux vidéo : ");
 $webPage->appendCssUrl("css/style.css");
 $webPage->appendContent("<div class='header'> <h1>Jeux vidéo : </h1></div>");
