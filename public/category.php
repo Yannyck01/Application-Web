@@ -22,10 +22,11 @@ try{
     exit();
 }
 
-$categoryPage = new WebPage("Jeux vidéo : ");
-$categoryPage->appendCssUrl("css/style.css");
 $catObject=Category::findById((int) $categoryId);
-$categoryPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$catObject->getDescription()} </h1></div>");
+$categoryPage = new WebPage();
+$categoryPage->setTitle("Jeux vidéo : {$categoryPage->escapeString($catObject->getDescription())}");
+$categoryPage->appendCssUrl("css/style.css");
+$categoryPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$categoryPage->escapeString($catObject->getDescription())} </h1></div>");
 
 $categoryPage->appendContent("<div class='list'>");
 foreach ($category as $game){
