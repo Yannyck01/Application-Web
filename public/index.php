@@ -13,7 +13,7 @@ $pageTest->appendContent(<<<HTML
     <div class="header">
         <h1>Jeux vidéo</h1>
     </div>
-    <div class='list'>
+    <div class='list__genre'>
         <div class='genre'>
             <h1>Genres</h1>\n
 HTML);
