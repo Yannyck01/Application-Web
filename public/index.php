@@ -9,13 +9,12 @@ use Html\WebPage;
 $pageTest = new WebPage("Page d'accueil");
 $pageTest->appendCssUrl("css/style.css");
 
-$pageTest->appendContent("<h1>Jeux vidéo</h1>");
+$pageTest->appendContent(<<<HTML
+    <h1>Jeux vidéo</h1>");
+    <div class='list'>");
+        <div class='genre'><h1>Genres</h1>
+HTML);
 
-$pageTest->appendContent("<div class='list'>");
-$pageTest->appendContent("<div class='genre'><h1>Genres</h1>");
-
-$genres = \Entity\Collection\GenreCollection::findAll();
-$categories = \Entity\Collection\CategoryCollection::findAll();
 $genres = GenreCollection::findAll();
 $categories = CategoryCollection::findAll();
 
