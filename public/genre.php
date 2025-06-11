@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Database\MyPdo;
 use Entity\Game;
-use Html\AppWebPage;
 use html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
