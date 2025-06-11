@@ -21,9 +21,10 @@ try{
     exit();
 }
 
-$webPage = new WebPage("Jeux vidéo : ");
-$webPage->appendCssUrl("css/style.css");
 $genreObject=Genre::findById((int) $genreId);
+$webPage = new WebPage();
+$webPage->setTitle("Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}");
+$webPage->appendCssUrl("css/style.css");
 $webPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}</h1></div>");
 
 $webPage->appendContent('<div class="list">');
