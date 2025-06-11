@@ -37,8 +37,10 @@ foreach ($category as $game){
                 <div class="game">
                         <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                         <div class="game__details">
-                            <div class="game__year">$year</div>
-                            <div class="game__name">$title</div>
+                            <div class="game__details2">
+                                <div class="game__name">$title</div>
+                                <div class="game__year"> ($year)</div>
+                            </div>
                             <div class="game__desc">$description</div>
                         </div>
                     </div>

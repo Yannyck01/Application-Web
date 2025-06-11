@@ -122,16 +122,20 @@ html, body {
     justify-content: flex-start;
     flex: 1;
 }
+.game__details2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;  /* Aligne verticalement au centre */
+    gap: 1rem;
+}
 .game__year {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #5e1205;
-    margin-bottom: 0.25rem;
 }
 .game__name {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
     color: #210965;
 }
 .game__desc {
