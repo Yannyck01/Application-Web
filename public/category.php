@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
-use Html\AppWebPage;
+use Html\WebPage;
 
 if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
     $categoryId = $_GET['idCtg'];
