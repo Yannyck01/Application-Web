@@ -97,6 +97,6 @@ HTML;
 
     public function getLastModification(): string
     {
-        return date("F d Y H:i:s.", getlastmod());
+        return date("j/m/Y \à H:i:s", getlastmod());
     }
 }
