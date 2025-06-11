@@ -47,7 +47,7 @@ class WebPage
 
     public function appendCssUrl(string $url): void
     {
-        $this->head = "$this->head<link href='$url' rel='stylesheet'>";
+        $this->appendToHead("<link rel=\"stylesheet\" href=\"$url\"/>");
 
     }
 
