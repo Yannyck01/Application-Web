@@ -72,30 +72,22 @@ class WebPage
     public function toHTML(): string
     {
         $HTML = <<<HTML
-
-        <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <meta charset="UTF-8" name="viewport">
-                <title>{$this->title}</title>
-                {$this->head}
-          </head>
-          <body>
-            {$this->body}
-            
-            
-            
-            
-          </body>
-          <br>
-          {$this->getLastModification()}
-        </html>
-        
-        
-        HTML;
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" name="viewport">
+        <title>{$this->title}</title>
+        {$this->head}
+    </head>
+    <body>
+        {$this->body}
+        <div class="footer">
+            <i>Dernière modification de cette page le {$this->getLastModification()}</i>
+        </div>
+    </body>
+</html>
+HTML;
         return $HTML;
-
-
     }
 
     public function escapeString(string $string): string
