@@ -31,6 +31,7 @@ html, body {
 }
 
 .list {
+    display: flex;
     width: 100%;
     max-width: 100%;
     max-height: 100%;
@@ -65,6 +66,7 @@ html, body {
 .genre,.categories {
     flex: 1 ;
     max-width: 50%;
+    box-sizing: border-box;
 }
 
 .genre {
