@@ -20,7 +20,10 @@ try{
     header('HTTP/1.1 404 Not Found');
     exit();
 }
-$categoryPage = new AppWebPage("Jeux vidéo : ");
+
+$categoryPage = new WebPage("Jeux vidéo : ");
+$categoryPage->appendCssUrl("css/style.css");
+$categoryPage->appendContent("<div class='header'> <h1>Jeux vidéo : </h1></div>");
 
 $categoryPage->appendContent("<div class='list'>");
 foreach ($category as $game){
