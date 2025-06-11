@@ -5,7 +5,7 @@ use Entity\Game;
 use html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
-    $genred = $_GET['genreId'];
+    $genreId = $_GET['genreId'];
 } else {
     header('Location: index.php', true, 302);
     exit();
