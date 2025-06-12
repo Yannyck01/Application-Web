@@ -22,4 +22,19 @@ SQL
         return $sql->fetchAll(PDO::FETCH_CLASS,Category::class);
 
     }
+
+    public static function findByGameId(int $gameId): array
+    {
+        $sql=MyPdo::getInstance()->prepare(<<<SQL
+SELECT *
+FROM category c
+JOIN game_category gc ON (c.id=gc.categoryId)
+WHERE gameId = :id
+SQL);
+        $sql->execute(["id"=>$gameId]);
+
+        $res=$sql->fetchAll(PDO::FETCH_CLASS, Category::class);
+
+        return $res;
+    }
 }
