@@ -25,12 +25,8 @@ try{
 $webPage = new WebPage();
 $webPage->setTitle("Jeux vidéo : {$webPage->escapeString($game->getName())}");
 $webPage->appendCssUrl("css/style.css");
-$webPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1></div>");
-$webPage->appendContent('<div class="list">');
-$priceEuro=$game->getPrice()/10;
-$dev = Developer::findById($game->getDeveloperId());
-
-$webPage->appendToHead(<<<HTML
+$webPage->appendContent(<<<HTML
+    <div class='header'> 
     <a href="index.php" class="homepage">
         <button class ='homepage' type='button' >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -39,7 +35,14 @@ $webPage->appendToHead(<<<HTML
             </svg>
         </button>
     </a>
+        <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
+    </div>
 HTML);
+$webPage->appendContent('<div class="list">');
+$priceEuro=$game->getPrice()/10;
+$dev = Developer::findById($game->getDeveloperId());
+
+
 
 $webPage->appendContent(<<<HTML
     <div class="gameD__container">
