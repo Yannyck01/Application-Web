@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Entity\Developer;
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
 use Html\WebPage;
@@ -25,10 +26,11 @@ $webPage->appendCssUrl("css/style.css");
 $webPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1></div>");
 $webPage->appendContent('<div class="list">');
 $priceEuro=$game->getPrice()/10;
+$dev = Developer::findById($game->getDeveloperId());
 
 $webPage->appendContent(<<<HTML
     <div class="gameD__cover"><img src="poster.php?posterId={$game->getPosterId()}"></div>
-    <div class="gameD__dev">{$game->getDeveloperId()}</div>
+    <div class="gameD__dev">{$dev->getName()}</div>
     <div class="gameD__note">{$game->getMetacritic()}</div>
     <div class="gameD__price">{$priceEuro}€</div>
     <div class="gameD__desc">{$game->getShortDescription()}</div>
