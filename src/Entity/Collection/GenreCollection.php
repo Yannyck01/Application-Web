@@ -16,7 +16,7 @@ class GenreCollection
         $sql=MyPdo::getInstance()->prepare(<<<SQL
 SELECT *
 FROM genre
-ORDER BY id
+ORDER BY description
 SQL
 );
         $sql->execute();
@@ -31,6 +31,7 @@ SELECT *
 FROM genre g
 JOIN game_genre gg ON (g.id=gg.genreId)
 WHERE gameId = :id
+ORDER BY g.description
 SQL);
         $sql->execute(["id"=>$gameId]);
 
