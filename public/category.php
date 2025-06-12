@@ -44,7 +44,7 @@ $categoryPage->appendContent("<div class='list'>");
 foreach ($category as $game){
 
     $year = $game->getReleaseYear();
-    $title = $game->getName();
+    $title = $categoryPage->escapeString($game->getName());
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
     $categoryPage->appendContent(<<<HTML
