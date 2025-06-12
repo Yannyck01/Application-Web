@@ -115,6 +115,10 @@ html, body {
     transition: box-shadow 0.3s ease;
 }
 
+.game:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
 /* Cover image container */
 .game__cover {
     flex-shrink: 0; /* prevent shrinking */
