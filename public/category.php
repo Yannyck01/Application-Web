@@ -45,7 +45,7 @@ foreach ($category as $game){
                             </div>
                             <div class="game__desc">$description</div>
                     </div>
-                </div>
+                </div> 
 HTML);
 
 }
