@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
 use Entity\Genre;
-use html\WebPage;
+use Html\WebPage;
 
 if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
     $genreId = $_GET['genreId'];
