@@ -59,32 +59,15 @@ html, body {
 
 .list__genre {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    flex-direction: column;
+    width: auto;
     overflow-y: auto;
     overflow-x: hidden;
     border: thick double #ccc;
 }
 
-.list a {
-    display: block;
-    max-width: 100%;
-    padding: 1rem;
-    background-color: white;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    color: red;
-    margin: 1rem;
-}
-
-.list a:hover {
-    background-color: black;
-}
-
 .list__genre a {
-    display: block;
+    display: flex;
     max-width: 100%;
     padding: 1rem;
     background-color: white;
