@@ -11,7 +11,7 @@ html, body {
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Spread button & title */
+    justify-content: space-between;
     background-color: #333;
     color: white;
     padding: 1rem 2rem;
@@ -44,10 +44,10 @@ a.homepage {
 }
 
 .header h1 {
-    margin: 0; /* Remove auto margin to prevent centering */
+    margin: 0;
     font-size: 2em;
-    flex: 1; /* Allow title to take available space */
-    text-align: center; /* Center text within its own space */
+    flex: 1;
+    text-align: center;
 }
 
 .content {
@@ -136,7 +136,7 @@ a.homepage {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1.5rem; /* space between image and text */
+    gap: 1.5rem;
     padding: 1rem 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
@@ -147,9 +147,9 @@ a.homepage {
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
-/* Cover image container */
+
 .game__cover {
-    flex-shrink: 0; /* prevent shrinking */
+    flex-shrink: 0;
     width: 20%;
     height: auto;
     border-radius: 12px;
@@ -175,7 +175,7 @@ a.homepage {
 .game__details2 {
     display: flex;
     flex-direction: row;
-    align-items: center;  /* Aligne verticalement au centre */
+    align-items: center;
     gap: 1rem;
 }
 .game__year {
