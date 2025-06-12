@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Entity\Collection\CategoryCollection;
 use Entity\Collection\GenreCollection;
 use Entity\Developer;
 use Entity\Exception\EntityNotFoundException;
@@ -41,6 +42,12 @@ $genres=GenreCollection::findByGameId((int) $gameId);
 $webPage->appendContent("<div class='gameD__genres'><h3>Genres : </h3>");
 foreach ($genres as $genre){
     $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p>");
+}
+
+$categories=CategoryCollection::findByGameId((int) $gameId);
+$webPage->appendContent("<div class='gameD__genres'><h3>Catégories : </h3>");
+foreach ($categories as $category){
+    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p>");
 }
 
 echo $webPage->toHTML();
