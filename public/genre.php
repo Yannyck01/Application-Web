@@ -47,7 +47,7 @@ foreach ($games as $game) {
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
     $webPage->appendContent(<<<HTML
-                <div class="game">
+                <div class="game" onclick="window.location.href='game.php?gameId={$game->getId()}';" style="cursor: pointer;">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
                             <div class="game__details2">
