@@ -26,7 +26,23 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
 }
+
+.header button.homepage svg {
+    width: 32px;
+    height: 32px;
+}
+a.homepage {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
 .header h1 {
     margin: 0; /* Remove auto margin to prevent centering */
     font-size: 2em;
