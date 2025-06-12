@@ -12,6 +12,7 @@ $pageTest->appendCssUrl("css/style.css");
 $pageTest->appendContent(<<<HTML
     <div class="header">
         <h1>Jeux vidéo</h1>
+        
     </div>
     <div class='list__genre'>
         <div class='genre'>
@@ -36,5 +37,4 @@ foreach ($categories as $category) {
 }
 
 $pageTest->appendContent("</div>\n</div>");
-
 echo $pageTest->toHTML();
