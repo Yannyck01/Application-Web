@@ -184,3 +184,16 @@ html, body {
     line-height: 1.4;
     color: rgba(2,44,33,0.88);
 }
+
+@media (min-width: 1000px) {
+    .list__genre {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .categories, .genre {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+}
