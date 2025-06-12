@@ -38,16 +38,24 @@ $webPage->appendContent(<<<HTML
         <h1>Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}</h1>
          <div style="width: 48px;"></div>
     </div>
+    <div class="sort-menu">
+        <label for="sort-select">Trier par :</label>
+        <select id="sort-select">
+            <option value="">Choisissez...</option>
+            <option value="title">Titre</option>
+            <option value="year">Année</option>
+        </select>
+    </div>
 HTML);
 
 $webPage->appendContent('<div class="list">');
 foreach ($games as $game) {
     $year = $game->getReleaseYear();
-    $title = $game->getName();
+    $title = $webPage->escapeString($game->getName());
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
     $webPage->appendContent(<<<HTML
-                <div class="game" onclick="window.location.href='game.php?gameId={$game->getId()}';" style="cursor: pointer;">
+                <div class="game" onclick="window.location.href='game.php?gameId={$game->getId()}';" style="cursor: pointer;" data-title="{$title}" data-year="{$year}">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
                             <div class="game__details2">
@@ -62,5 +70,27 @@ HTML
     );
 }
 $webPage->appendContent("</div>");
+$webPage->appendContent(<<<JS
+<script>
+    const list = document.querySelector('.list');
+    const originalGames = Array.from(list.querySelectorAll('.game')); // ordre initial
+
+    document.getElementById('sort-select').addEventListener('change', function () {
+        const sortBy = this.value;
+        let games;
+
+        if (sortBy === 'title') {
+            games = [...originalGames].sort((a, b) => a.dataset.title.localeCompare(b.dataset.title));
+        } else if (sortBy === 'year') {
+            games = [...originalGames].sort((a, b) => parseInt(a.dataset.year) - parseInt(b.dataset.year));
+        } else {
+            games = [...originalGames];
+        }
+
+        list.innerHTML = '';
+        games.forEach(game => list.appendChild(game));
+    });
+</script>
+JS);
 echo $webPage->toHTML();
 
