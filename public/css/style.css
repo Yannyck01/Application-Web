@@ -106,21 +106,6 @@ html, body {
     font-size: 0.9em;
 }
 
-.genre,.categories {
-    flex: 1 ;
-    max-width: 50%;
-    box-sizing: border-box;
-}
-
-.genre {
-    text-align: left;
-
-}
-
-.categories {
-    text-align: right;
-}
-
 .genre h1, .categories h1 {
     font-family: "JetBrains Mono ExtraBold";
     font-weight: bold;
