@@ -34,7 +34,7 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__container">
         <div class="gameD__cover">
             <img src="poster.php?posterId={$game->getPosterId()}">
-            <div class="gameD__dev">{$dev->getName()}</div>
+            <div class="gameD__dev">{$dev->getName()}</div
         </div>
     </div>
     <div class="gameD__infos">
