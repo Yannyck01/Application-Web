@@ -81,6 +81,15 @@ html, body {
     background-color: black;
 }
 
+.list .game:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.list .game:nth-child(even) .game__details {
+    text-align: right;
+    align-items: flex-end;
+}
+
 .footer {
     background-color: #333;
     color: #fff;
