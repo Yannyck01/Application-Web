@@ -172,7 +172,8 @@ SQL);
 
     }
 
-    public static function findById(int $id){
+    public static function findById(int $id): array
+    {
         $requestId = MyPdo::getInstance()->prepare( <<< 'SQL'
             SELECT id, name, releaseYear, shortDescription, price,
                    windows, linux, mac,metacritic, developerId, posterId
@@ -181,7 +182,7 @@ SQL);
             
         SQL);
         $requestId->execute([":id"=> $id]);
-        $res = $requestId->fetchAll(PDO::FETCH_CLASS,Game::class);
+        $res = $requestId->fetchObject(Game::class);
 
         if (!$res) {
             throw new EntityNotFoundException("The game id $id does not match any game");
