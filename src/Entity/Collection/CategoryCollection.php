@@ -15,7 +15,7 @@ class CategoryCollection
         $sql=MyPdo::getInstance()->prepare(<<<SQL
 SELECT *
 FROM category
-ORDER BY id
+ORDER BY description
 SQL
         );
         $sql->execute();
@@ -30,6 +30,7 @@ SELECT *
 FROM category c
 JOIN game_category gc ON (c.id=gc.categoryId)
 WHERE gameId = :id
+ORDER BY c.description
 SQL);
         $sql->execute(["id"=>$gameId]);
 
