@@ -172,7 +172,7 @@ SQL);
 
     }
 
-    public static function findById(int $id): array
+    public static function findById(int $id): Game
     {
         $requestId = MyPdo::getInstance()->prepare( <<< 'SQL'
             SELECT id, name, releaseYear, shortDescription, price,
