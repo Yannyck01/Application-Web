@@ -31,23 +31,37 @@ $priceEuro=$game->getPrice()/10;
 $dev = Developer::findById($game->getDeveloperId());
 
 $webPage->appendContent(<<<HTML
-    <div class="gameD__cover"><img src="poster.php?posterId={$game->getPosterId()}"></div>
-    <div class="gameD__dev">{$dev->getName()}</div>
-    <div class="gameD__note">{$game->getMetacritic()}</div>
-    <div class="gameD__price">{$priceEuro}€</div>
+    <div class="gameD__container">
+        <div class="gameD__cover">
+            <img src="poster.php?posterId={$game->getPosterId()}">
+            <div class="gameD__dev">{$dev->getName()}</div
+        </div>
+    </div>
+    <div class="gameD__infos">
+        <div class="gameD__topline">
+            <div class="gameD__note">{$game->getMetacritic()}</div>
+            <div class="gameD__price">{$priceEuro}€</div>
+        </div>
+    </div>
+    
     <div class="gameD__desc">{$game->getShortDescription()}</div>
 HTML);
 
 $genres=GenreCollection::findByGameId((int) $gameId);
 $webPage->appendContent("<div class='gameD__genres'><h3>Genres : </h3>");
 foreach ($genres as $genre){
-    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p>");
+    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p></div>");
 }
 
+$webPage->appendContent("</div>");
+
 $categories=CategoryCollection::findByGameId((int) $gameId);
-$webPage->appendContent("<div class='gameD__genres'><h3>Catégories : </h3>");
+$webPage->appendContent("<div class='gameD__ctg'><h3>Catégories : </h3>");
 foreach ($categories as $category){
-    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p>");
+    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p></div>");
 }
+
+$webPage->appendContent("</div>");
+
 
 echo $webPage->toHTML();
