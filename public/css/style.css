@@ -242,9 +242,19 @@ a.homepage {
     .categories, .genre {
         flex: 1;
         display: flex;
-        flex-direction: column
+        flex-direction: column;
 
     }
+}
+
+.gameD__genres, .gameD__ctg {
+    display: flex;
+    flex: 1;
+    width: auto;
+}
+.gameD__genres h3 , .gameD__ctg h3{
+    font-family: "Honk", cursive;
+    font-size: 1.5em;
 }
 
 .gameD__genres, .gameD__ctg {
@@ -290,4 +300,5 @@ a.homepage {
     width: auto;
 
 }
+
 
