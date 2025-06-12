@@ -24,13 +24,13 @@ $webPage->setTitle("Jeux vidéo : {$webPage->escapeString($game->getName())}");
 $webPage->appendCssUrl("css/style.css");
 $webPage->appendContent("<div class='header'> <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1></div>");
 $webPage->appendContent('<div class="list">');
-$priceEuro=$game->getPrice()/100;
+$priceEuro=$game->getPrice()/10;
 
 $webPage->appendContent(<<<HTML
-    <div class="game__cover"><img src="poster.php?posterId={$game->getPosterId()}"></div>
-    <div class="game__dev">{$game->getDeveloperId()}</div>
-    <div class="game__note">{$game->getMetacritic()}</div>
-    <div class="game__price">{$priceEuro}</div>
-    <div class="game__desc">{$game->getShortDescription()}</div>
+    <div class="gameD__cover"><img src="poster.php?posterId={$game->getPosterId()}"></div>
+    <div class="gameD__dev">{$game->getDeveloperId()}</div>
+    <div class="gameD__note">{$game->getMetacritic()}</div>
+    <div class="gameD__price">{$priceEuro}€</div>
+    <div class="gameD__desc">{$game->getShortDescription()}</div>
 HTML);
 echo $webPage->toHTML();
