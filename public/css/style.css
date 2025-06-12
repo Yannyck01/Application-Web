@@ -159,6 +159,15 @@ a.homepage {
     font-size: 0.9em;
 }
 
+.sort-menu {
+    margin: 1rem 2rem;
+    font-weight: bold;
+}
+#sort-select {
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
 .genre h1, .categories h1 {
     font-family: "honk", monospace;
     font-weight: bold;
