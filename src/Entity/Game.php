@@ -242,7 +242,7 @@ SQL);
 
     }
 
-    public function save() {
+    public function save(): void {
         if(isset($this->id)){
             $this->update();
         }
