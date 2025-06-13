@@ -36,6 +36,8 @@ class GameForm
 
         return <<<HTML
     <div class="header">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+
         <h1>Création d'un nouveau jeu</h1>
     </div>
     <style>
@@ -44,13 +46,21 @@ class GameForm
             width: 99%;
             flex-direction: column;
             gap: 20px;
+            align-items: center;
         }
         .container label {
+            font-family: 'Lexend', sans-serif;
             display: flex;
             flex-direction: column;
             font-weight: bold;
             gap: 5px;
+            width: 60%;
+            
         }
+        
+        
+        
+        
         .container input[type="text"],
         .container input[type="number"],
         .container textarea {
@@ -76,8 +86,10 @@ class GameForm
         }
         .update-button {
             padding-top: 2rem;
+            width: 100%;
         }
     </style>
+    
     <form name="gameForm" action="$action" method="POST" class="game__form">
         <div class="container">
             <label>
