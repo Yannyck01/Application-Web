@@ -117,10 +117,6 @@ class GameForm
                 <input name="grade" type="number" placeholder="Note sur 100" value="{$this->game?->getMetacritic()}">
             </label>
             <label>
-                Id Poster :
-                <input name="posterId" type="number" placeholder="Id Poster" value="{$this->game?->getPosterId()}">
-            </label>
-            <label>
                 Id Développeur :
                 <input name="devId" type="number" placeholder="Id Développeur" value="{$this->game?->getDeveloperId()}">
             </label>
@@ -169,13 +165,12 @@ HTML;
         $grade = (int)$_POST['grade'];
         $price = (int)$_POST['price'];
         $desc = $_POST['desc'];
-        $posterId  = isset($_POST['posterId']) ? (int)$_POST['posterId'] : 1;
         $devId = (int)$_POST['devId'];
         $year = (int)$_POST['year'];
         $mac = isset($_POST['mac']) ? 1 : 0;
         $linux = isset($_POST['linux']) ? 1 : 0;
         $windows = isset($_POST['windows']) ? 1 : 0;
 
-        $this->game = Game::create($id, $name, $year, $desc, $price, $windows, $linux, $mac, $grade, $devId, $posterId);
+        $this->game = Game::create($id, $name, $year, $desc, $price, $windows, $linux, $mac, $grade, $devId);
     }
 }
