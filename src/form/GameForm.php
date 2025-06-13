@@ -55,11 +55,7 @@ class GameForm {
     }
 
     public function setFromQueryQString() {
-        $name = $_POST['game__name'];
-        $id = $_POST['id'];
-        $description = $_POST['desc'];
-        $price = $_POST['price__euro'];
-        $grade = $_POST['grade__100'];
+
         $this->game = new Game();
 
     }
