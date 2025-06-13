@@ -194,4 +194,16 @@ SQL);
 
         return $this;
     }
+
+    public function update(int $id,?int $metacritic, ?int $developerId, string $name, int $price ) : Game
+    {
+        $requestUpdt = MyPdo::getInstance()->prepare(<<<'SQL'
+        UPDATE game SET name = :name, metacritic = :meta, developperId = :devId,
+                        price = : price
+        WHERE id = :id 
+    SQL);
+    $requestUpdt->execute([":id"=>$this->id,"name"=>$name,":meta"=>$metacritic,":price"=>$price]);
+    $res = $requestUpdt->fetchAll(PDO::FETCH_CLASS, Game::class);
+    return $this;
+    }
 }
