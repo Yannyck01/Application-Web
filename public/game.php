@@ -58,7 +58,7 @@ $webPage->appendContent(<<<HTML
     </div>
     <div class="gameD__infos">
         <div class="gameD__topline">
-            <div class="gameD__note">{$game->getMetacritic()}</div>
+            <div class="gameD__note">{$game->getMetacritic()}/100</div>
             <div class="gameD__price">{$priceEuro}€</div>
         </div>
     </div>
