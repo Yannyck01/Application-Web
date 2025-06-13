@@ -62,8 +62,9 @@ $webPage->appendContent(<<<HTML
             <div class="gameD__price">{$priceEuro}€</div>
         </div>
     </div>
-    
+    <div class="desc">
     <div class="gameD__desc">{$game->getShortDescription()}</div>
+    </div>
 HTML);
 
 $genres=GenreCollection::findByGameId((int) $gameId);
