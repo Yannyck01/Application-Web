@@ -245,14 +245,15 @@ SQL);
 
     }
 
-    public function save() {
+    public function save(): Game
+    {
         if($this->id == null){
-            $this->create();
+            $this->insert();
         }
         else {
             $this->update();
         }
-
+        return $this;
     }
 
     public static function create(?int $id = null, string $name, int $year, string $desc, int $price, int $windows, int $linux, int $mac, int $metacritic, int $devId, int $posterId)
