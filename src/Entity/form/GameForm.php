@@ -57,6 +57,41 @@ class GameForm
     }
 
 
+    public function setFromQueryString(): void
+    {
+        if(isset($_POST['id']) && is_numeric($_POST['id'])){
+            $id = (int) $_POST['id'];
+        }
+        else {
+            $id = null;
+        }
+
+        if(empty($_POST['game__name'])) {
+            throw new EntityNotFoundException(("Le nom ne correspond à aucun jeu"));
+        }
+
+        if(empty($_POST['desc'])) {
+            throw new EntityNotFoundException(("La description ne correspond à aucun jeu"));
+        }
+
+        if(isset($_POST['price__euro']) && is_numeric($_POST['price__euro'])){
+            $price = (int) $_POST['price__euro'];
+        }
+        else {
+            $price = null;
+        }
+
+        if(isset($_POST['grade__100']) && is_numeric($_POST['grade__100'])){
+            $grade = (int) $_POST['grade__100'];
+        }
+        else {
+            $grade = null;
+        }
+
+
+        $this->game = new Game();
+
+    }
 
 
 
