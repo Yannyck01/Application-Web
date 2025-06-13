@@ -6,6 +6,7 @@ namespace Entity\form;
 
 use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
+use Exception\ParameterException;
 
 class GameForm
 {
@@ -67,11 +68,11 @@ class GameForm
         }
 
         if(empty($_POST['game__name'])) {
-            throw new EntityNotFoundException(("Le nom ne correspond à aucun jeu"));
+            throw new ParameterException(("Le nom ne correspond à aucun jeu"));
         }
 
         if(empty($_POST['desc'])) {
-            throw new EntityNotFoundException(("La description ne correspond à aucun jeu"));
+            throw new ParameterException(("La description ne correspond à aucun jeu"));
         }
 
         if(isset($_POST['price__euro']) && is_numeric($_POST['price__euro'])){
