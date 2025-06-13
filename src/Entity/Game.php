@@ -34,15 +34,7 @@ class Game
      * @param string $name
      * @param int|null $id
      */
-    public function __construct( ?int $developerId, ?int $metacritic, int $price, string $shortDescription,  string $name, ?int $id)
-    {
-        $this->developerId = $developerId;
-        $this->metacritic = $metacritic;
-        $this->price = $price;
-        $this->shortDescription = $shortDescription;
-        $this->name = $name;
-        $this->id = $id;
-    }
+
 
 
     public function getId(): ?int
@@ -242,7 +234,7 @@ SQL);
 
     }
 
-    public function save(): void {
+    public function save() {
         if(isset($this->id)){
             $this->update();
         }
