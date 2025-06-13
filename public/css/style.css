@@ -300,6 +300,23 @@ a.homepage {
     justify-content: space-between;
     margin: 1rem auto;
     width: 90%;
+
+}
+
+.gameD__note {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #08417a;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
+.gameD__price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #08417a;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
 }
 
 .gameD__desc {
@@ -309,6 +326,10 @@ a.homepage {
     font-size: 1rem;
     line-height: 1.6;
     text-align: justify;
+    font-weight: bold;
+    background-color: #355e8f;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
 }
 
 .gameD__genres,
@@ -349,6 +370,8 @@ a.homepage {
     display: block;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+
 
 .gameD__genre a:hover {
     background-color: #08417a;
