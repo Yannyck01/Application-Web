@@ -8,13 +8,13 @@ use Exception\ParameterException;
 
 
 try {
-    if(isset($_GET['id'])) {
+    if(!isset($_GET['gameId'])) {
         $game = null;
     } else {
-        if (!is_numeric($_GET['id'])) {
+        if (!is_numeric($_GET['gameId'])) {
             throw new ParameterException("Le type de l'id est incorrect, veuillez saisir un entier");
         }
-        $id = (int) $_GET['id'];
+        $id = (int) $_GET['gameId'];
         $game = Game::findById($id);
 
 }
