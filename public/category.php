@@ -14,9 +14,15 @@ if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
     exit();
 }
 
+try {
+    $catObject=Category::findById((int) $categoryId);
+} catch (EntityNotFoundException $e){
+    header('HTTP/1.1 404 Not Found');
+    echo "Genre avec l'ID $categoryId n'a pas été trouvé !";
+    exit();
+}
 
 $category = Game::findByCategoryId((int)$categoryId);
-$catObject=Category::findById((int) $categoryId);
 $categoryPage = new WebPage();
 $categoryPage->setTitle("Jeux vidéo : {$categoryPage->escapeString($catObject->getDescription())}");
 $categoryPage->appendCssUrl("css/style.css");
