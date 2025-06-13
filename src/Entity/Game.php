@@ -162,9 +162,6 @@ SQL);
         $requestCtg->execute([":idCtg"=> $categoryId]);
         $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Game::class);
 
-        if (!$res)
-            throw new EntityNotFoundException("ID $categoryId not found");
-
         return $res;
 
     }
