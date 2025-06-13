@@ -61,6 +61,11 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__poster">
       <img src="poster.php?posterId={$game->getPosterId()}" alt="Affiche du jeu">
     </div>
+    <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
+            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Modifier
+            </button>
+        </form>
     <div class="gameD__platforms-year">
         <div class="gameD__platforms">
 HTML);

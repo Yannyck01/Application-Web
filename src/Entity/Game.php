@@ -42,9 +42,10 @@ class Game
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id): Game
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getName(): string
@@ -52,9 +53,10 @@ class Game
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): Game
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getReleaseYear(): int
@@ -62,9 +64,10 @@ class Game
         return $this->releaseYear;
     }
 
-    public function setReleaseYear(int $releaseYear): void
+    public function setReleaseYear(int $releaseYear): Game
     {
         $this->releaseYear = $releaseYear;
+        return $this;
     }
 
     public function getShortDescription(): string
@@ -72,9 +75,10 @@ class Game
         return $this->shortDescription;
     }
 
-    public function setShortDescription(string $shortDescription): void
+    public function setShortDescription(string $shortDescription): Game
     {
         $this->shortDescription = $shortDescription;
+        return $this;
     }
 
     public function getPrice(): int
@@ -82,9 +86,10 @@ class Game
         return $this->price;
     }
 
-    public function setPrice(int $price): void
+    public function setPrice(int $price): Game
     {
         $this->price = $price;
+        return $this;
     }
 
     public function getWindows(): int
@@ -92,9 +97,10 @@ class Game
         return $this->windows;
     }
 
-    public function setWindows(int $windows): void
+    public function setWindows(int $windows): Game
     {
         $this->windows = $windows;
+        return $this;
     }
 
     public function getLinux(): int
@@ -102,9 +108,10 @@ class Game
         return $this->linux;
     }
 
-    public function setLinux(int $linux): void
+    public function setLinux(int $linux): Game
     {
         $this->linux = $linux;
+        return $this;
     }
 
     public function getMac(): int
@@ -112,9 +119,10 @@ class Game
         return $this->mac;
     }
 
-    public function setMac(int $mac): void
+    public function setMac(int $mac): Game
     {
         $this->mac = $mac;
+        return $this;
     }
 
     public function getMetacritic(): ?int
@@ -122,9 +130,10 @@ class Game
         return $this->metacritic;
     }
 
-    public function setMetacritic(?int $metacritic): void
+    public function setMetacritic(?int $metacritic): Game
     {
         $this->metacritic = $metacritic;
+        return $this;
     }
 
     public function getDeveloperId(): int
@@ -132,9 +141,10 @@ class Game
         return $this->developerId;
     }
 
-    public function setDeveloperId(int $developerId): void
+    public function setDeveloperId(int $developerId): Game
     {
         $this->developerId = $developerId;
+        return $this;
     }
 
     public function getPosterId(): int
@@ -142,9 +152,10 @@ class Game
         return $this->posterId;
     }
 
-    public function setPosterId(int $posterId): void
+    public function setPosterId(int $posterId): Game
     {
         $this->posterId = $posterId;
+        return $this;
     }
 
     /***
@@ -213,36 +224,41 @@ SQL);
 
     public function update( ) : Game
     {
-        $requestUpdt = MyPdo::getInstance()->prepare(<<<'SQL'
-        UPDATE game SET name = :name, metacritic = :meta, developperId = :devId,
-                        price = : price, shortDescription = :desc
+        $sql = MyPdo::getInstance()->prepare(<<<SQL
+        UPDATE game SET name = :name, releaseYear = :year, shortDescription = :desc, price = :price, windows = :windows, linux = :linux, mac = :mac, metacritic = :metacritic, developerId = :devId, posterId = :posterId
         WHERE id = :id 
     SQL);
-    $requestUpdt->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
     return $this;
     }
 
-    public function create() : Game
+    public function insert(): Game
     {
-        $createRequest = MyPdo::getInstance()->prepare(<<< SQL
-        INSERT INTO game ('name','shortDescription','price','developperId','metacritic')
-        VALUES           ( :name, :shortDescription, :price, :developperId, :metacritic)
+        $sql = MyPdo::getInstance()->prepare("INSERT INTO game VALUES (:id, :name, :year, :desc, :price, :windows, :linux, :mac, :metacritic, :devId, :posterId)");
 
-    SQL);
-        $createRequest->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
+
         $this->setId((int)MyPdo::getInstance()->lastInsertId());
 
+        return $this;
     }
 
-    public function save() {
+    public function save(): Game
+    {
         if($this->id == null){
-            $this->create();
+            $this->insert();
         }
         else {
             $this->update();
         }
-
+        return $this;
     }
+
+    public static function create(?int $id = null, string $name, int $year, string $desc, int $price, int $windows, int $linux, int $mac, int $metacritic, int $devId, int $posterId)
+    {
+        return (new Game())->setId($id)->setName($name)->setReleaseYear($year)->setShortDescription($desc)->setPrice($price)->setWindows($windows)->setLinux($linux)->setMac($mac)->setMetacritic($metacritic)->setDeveloperId($devId)->setPosterId($posterId);
+    }
+
 
 
 }
