@@ -233,16 +233,15 @@ SQL);
     return $this;
     }
 
-    public function create() : Game
+    public function insert(): Game
     {
-        $createRequest = MyPdo::getInstance()->prepare(<<< SQL
-        INSERT INTO game ('name','shortDescription','price','developperId','metacritic')
-        VALUES           ( :name, :shortDescription, :price, :developperId, :metacritic)
+        $sql = MyPdo::getInstance()->prepare("INSERT INTO game VALUES (:id, :name, :year, :desc, :price, :windows, :linux, :mac, :metacritic, :devId, :posterId)");
 
-    SQL);
-        $createRequest->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
+
         $this->setId((int)MyPdo::getInstance()->lastInsertId());
 
+        return $this;
     }
 
     public function save(): Game
