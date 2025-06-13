@@ -21,6 +21,30 @@ class Game
     protected ?int $developerId;
     protected int $posterId;
 
+    /**
+     * @param int $posterId
+     * @param int|null $developerId
+     * @param int|null $metacritic
+     * @param int $mac
+     * @param int $linux
+     * @param int $windows
+     * @param int $price
+     * @param string $shortDescription
+     * @param int $releaseYear
+     * @param string $name
+     * @param int|null $id
+     */
+    public function __construct( ?int $developerId, ?int $metacritic, int $price, string $shortDescription,  string $name, ?int $id)
+    {
+        $this->developerId = $developerId;
+        $this->metacritic = $metacritic;
+        $this->price = $price;
+        $this->shortDescription = $shortDescription;
+        $this->name = $name;
+        $this->id = $id;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,15 +219,29 @@ SQL);
         return $this;
     }
 
-    public function update(int $id,?int $metacritic, ?int $developerId, string $name, int $price ) : Game
+    public function update( ) : Game
     {
         $requestUpdt = MyPdo::getInstance()->prepare(<<<'SQL'
         UPDATE game SET name = :name, metacritic = :meta, developperId = :devId,
-                        price = : price
+                        price = : price, shortDescription = :desc
         WHERE id = :id 
     SQL);
-    $requestUpdt->execute([":id"=>$this->id,"name"=>$name,":meta"=>$metacritic,":price"=>$price]);
-    $res = $requestUpdt->fetchAll(PDO::FETCH_CLASS, Game::class);
+    $requestUpdt->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
     return $this;
+    }
+
+    public function create() : Game
+    {
+        $createRequest = MyPdo::getInstance()->prepare(<<< SQL
+        INSERT INTO game ('name','shortDescription','price','developperId','metacritic')
+        VALUES           ( :name, :shortDescription, :price, :developperId, :metacritic)
+
+    SQL);
+        $createRequest->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $this->setId((int)MyPdo::getInstance()->lastInsertId());
+
+    }
+
+
     }
 }
