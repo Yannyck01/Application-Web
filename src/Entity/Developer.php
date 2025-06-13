@@ -6,6 +6,7 @@ namespace Entity;
 
 use Database\MyPdo;
 use Entity\Exception\EntityNotFoundException;
+use PDO;
 
 class Developer
 {
@@ -35,6 +36,17 @@ class Developer
         }
 
         return $res;
+    }
+
+    public static function findAll(): array
+    {
+        $sql = MyPdo::getInstance()->prepare(<<<SQL
+            SELECT *
+            FROM developer
+        SQL);
+        $sql->execute();
+
+        return $sql->fetchAll(PDO::FETCH_CLASS, Developer::class);
     }
 
 }
