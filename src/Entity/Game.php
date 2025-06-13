@@ -147,9 +147,6 @@ class Game
         $request->execute([":id" => $genreId]);
         $res=$request->fetchAll(PDO::FETCH_CLASS,Game::class);
 
-        if (!$res)
-            throw new EntityNotFoundException("ID $genreId not found");
-
         return $res;
     }
 
