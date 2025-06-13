@@ -254,7 +254,7 @@ SQL);
         return $this;
     }
 
-    public static function create(?int $id = null, string $name, int $year, string $desc, int $price, int $windows, int $linux, int $mac, int $metacritic, int $devId, int $posterId)
+    public static function create(?int $id = null, string $name, int $year, string $desc, ?int $price, int $windows, int $linux, int $mac, ?int $metacritic, ?int $devId, ?int $posterId)
     {
         return (new Game())->setId($id)->setName($name)->setReleaseYear($year)->setShortDescription($desc)->setPrice($price)->setWindows($windows)->setLinux($linux)->setMac($mac)->setMetacritic($metacritic)->setDeveloperId($devId)->setPosterId($posterId);
     }
