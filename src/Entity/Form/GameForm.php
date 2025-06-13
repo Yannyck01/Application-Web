@@ -33,7 +33,7 @@ class GameForm
         <div class="header">
             <h1>Création d'un nouveau jeu</h1>
         </div>
-        <form name="gameForm"  action="$action" method="POST">
+        <form name="gameForm"  action="$action" method="POST" class="game__form">
             <div class="container">
                 <h1></h1>
                 <label>
