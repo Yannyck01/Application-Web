@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Entity\Collection\CategoryCollection;
@@ -15,16 +16,16 @@ if (isset($_GET['gameId']) && ctype_digit($_GET['gameId'])) {
     exit();
 }
 
-try{
+try {
     $game = Game::findById((int)$gameId);
 
-} catch(EntityNotFoundException) {
+} catch (EntityNotFoundException) {
     header('HTTP/1.1 404 Not Found');
     echo "Jeu avec l'ID $gameId n'a pas été trouvé !";
     exit();
 }
 $webPage = new WebPage();
-$webPage->setTitle("Jeux vidéo : {$webPage->escapeString($game->getName())}");
+$webPage->setTitle("Jeux vidéo : {$game->getName()}");
 $webPage->appendCssUrl("css/style.css");
 $webPage->appendContent(<<<HTML
     <div class='header'> 
@@ -38,21 +39,21 @@ $webPage->appendContent(<<<HTML
     </a>
         <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
     </div>
-    <div class="gameD__button"
+    <div class="gameD__button">
         <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');">
-            <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <button type="submit" class="delete-button">
                 Supprimer
             </button>
         </form>
         <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
-            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <button type="submit" class="update-button">
                 Modifier
             </button>
         </form>
     </div>
 HTML);
 $webPage->appendContent('<div class="list">');
-$priceEuro=$game->getPrice()/100;
+$priceEuro = $game->getPrice() / 100;
 $dev = Developer::findById($game->getDeveloperId());
 
 $webPage->appendContent(<<<HTML
@@ -61,11 +62,6 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__poster">
       <img src="poster.php?posterId={$game->getPosterId()}" alt="Affiche du jeu">
     </div>
-    <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
-            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-                Modifier
-            </button>
-        </form>
     <div class="gameD__platforms-year">
         <div class="gameD__platforms">
 HTML);
@@ -90,13 +86,14 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__rating-price">
 HTML);
 
-if (empty($game->getMetacritic()))
+if (empty($game->getMetacritic())) {
     $webPage->appendContent("<div class='gameD__note'>Pas de note</div>");
-else
+} else {
     $webPage->appendContent("<div class='gameD__note'>{$game->getMetacritic()}/100</div>");
+}
 
 
-if ($priceEuro == 0){
+if ($priceEuro == 0) {
     $webPage->appendContent("<div class='gameD__price'>Gratuit</div>");
 } else {
     $webPage->appendContent("<div class='gameD__price'>{$priceEuro}€</div>");
@@ -112,15 +109,15 @@ $webPage->appendContent(<<<HTML
   <div class='gameD__genres'><h3>Genres :</h3><div class="gameD__genre-list">
 HTML);
 
-$genres=GenreCollection::findByGameId((int) $gameId);
+$genres = GenreCollection::findByGameId((int) $gameId);
 foreach ($genres as $genre) {
     $webPage->appendContent("<div class='gameD__genre'><p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p></div>");
 }
 
-$categories=CategoryCollection::findByGameId((int) $gameId);
+$categories = CategoryCollection::findByGameId((int) $gameId);
 $webPage->appendContent("</div></div><div class='gameD__ctg'><h3>Catégories :</h3>");
 
-foreach ($categories as $category){
+foreach ($categories as $category) {
     $webPage->appendContent("<div class='gameD__genre'><p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p></div>");
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 
@@ -15,8 +16,8 @@ if (isset($_GET['idCtg']) && ctype_digit($_GET['idCtg'])) {
 }
 
 try {
-    $catObject=Category::findById((int) $categoryId);
-} catch (EntityNotFoundException $e){
+    $catObject = Category::findById((int) $categoryId);
+} catch (EntityNotFoundException $e) {
     header('HTTP/1.1 404 Not Found');
     echo "Genre avec l'ID $categoryId n'a pas été trouvé !";
     exit();
@@ -24,10 +25,10 @@ try {
 
 $category = Game::findByCategoryId((int)$categoryId);
 $categoryPage = new WebPage();
-$categoryPage->setTitle("Jeux vidéo : {$categoryPage->escapeString($catObject->getDescription())}");
+$categoryPage->setTitle("Jeux vidéo : {$catObject->getDescription()}");
 $categoryPage->appendCssUrl("css/style.css");
 
-if (!$category){
+if (!$category) {
     $categoryPage->appendContent(<<<HTML
     <div class='header'> 
         <a href="index.php" class="homepage">
@@ -72,7 +73,7 @@ $categoryPage->appendContent(<<<HTML
 HTML);
 
 $categoryPage->appendContent("<div class='list'>");
-foreach ($category as $game){
+foreach ($category as $game) {
 
     $year = $game->getReleaseYear();
     $title = $categoryPage->escapeString($game->getName());

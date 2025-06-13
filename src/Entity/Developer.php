@@ -24,14 +24,15 @@ class Developer
 
     public static function findById(int $id): Developer
     {
-        $sql=MyPdo::getInstance()->prepare("SELECT * FROM developer WHERE id = :id");
+        $sql = MyPdo::getInstance()->prepare("SELECT * FROM developer WHERE id = :id");
 
         $sql->execute(["id" => $id]);
 
         $res = $sql->fetchObject(Developer::class);
 
-        if (!$res)
+        if (!$res) {
             throw new EntityNotFoundException("Developer with Id $id not found");
+        }
 
         return $res;
     }

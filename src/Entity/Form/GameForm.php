@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Entity\Form;
 
@@ -36,9 +36,16 @@ class GameForm
 
         return <<<HTML
     <div class="header">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
-
-        <h1>Création d'un nouveau jeu</h1>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+        <a href="../index.php" class="homepage">
+                <button class ='homepage' type='button' >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                      <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                      <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+                    </svg>
+                </button>
+            </a>
+        <h1>Création / Modification d'un nouveau jeu</h1>
     </div>
     <style>
         .container {
@@ -146,29 +153,29 @@ HTML;
             $id = null;
         }
 
-        if (empty($_POST['name'])){
+        if (empty($_POST['name'])) {
             throw new ParameterException("The name of game is required");
         }
 
-        if (empty($_POST['year'])){
+        if (empty($_POST['year'])) {
             throw new ParameterException("The year of game is required");
         }
 
-        if (empty($_POST['desc'])){
+        if (empty($_POST['desc'])) {
             throw new ParameterException("The description of game is required");
         }
 
         $name = $_POST['name'];
-        $grade=(int)$_POST['grade'];
-        $price=(int)$_POST['price'];
-        $desc=$_POST['desc'];
+        $grade = (int)$_POST['grade'];
+        $price = (int)$_POST['price'];
+        $desc = $_POST['desc'];
         $posterId  = isset($_POST['posterId']) ? (int)$_POST['posterId'] : 1;
-        $devId=(int)$_POST['devId'];
-        $year=(int)$_POST['year'];
+        $devId = (int)$_POST['devId'];
+        $year = (int)$_POST['year'];
         $mac = isset($_POST['mac']) ? 1 : 0;
         $linux = isset($_POST['linux']) ? 1 : 0;
         $windows = isset($_POST['windows']) ? 1 : 0;
 
-        $this->game = Game::create($id,$name,$year,$desc,$price,$windows,$linux,$mac,$grade,$devId,$posterId);
+        $this->game = Game::create($id, $name, $year, $desc, $price, $windows, $linux, $mac, $grade, $devId, $posterId);
     }
 }

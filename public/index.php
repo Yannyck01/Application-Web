@@ -6,10 +6,11 @@ use Entity\Collection\CategoryCollection;
 use Entity\Collection\GenreCollection;
 use Html\WebPage;
 
-$pageTest = new WebPage("Page d'accueil");
+$pageTest = new WebPage("Jeux vidéo");
 $pageTest->appendCssUrl("css/style.css");
 
-$pageTest->appendContent(<<<HTML
+$pageTest->appendContent(
+    <<<HTML
     <div class="header">
         <h1>Jeux vidéo</h1>
     <form method="POST" action="admin/game-form.php">

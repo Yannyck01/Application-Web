@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Entity;
@@ -33,14 +34,15 @@ class Category
 
     public static function findById(int $id): Category
     {
-        $sql=MyPdo::getInstance()->prepare("SELECT * FROM category WHERE id = :id");
+        $sql = MyPdo::getInstance()->prepare("SELECT * FROM category WHERE id = :id");
 
         $sql->execute(["id" => $id]);
 
-        $res=$sql->fetchObject(Category::class);
+        $res = $sql->fetchObject(Category::class);
 
-        if (!$res)
+        if (!$res) {
             throw new EntityNotFoundException("Genre with ID $id not found");
+        }
 
         return $res;
     }
