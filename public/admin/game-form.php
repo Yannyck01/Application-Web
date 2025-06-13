@@ -21,7 +21,7 @@ try {
 }
    $gameForm = new GameForm($game);
    $form = $gameForm->getHtmlForm("game-save.php");
-   $formHtml=new WebPage("Création d'un nouveau jeu");
+   $formHtml=new WebPage("Création / Modification d'un nouveau jeu");
    $formHtml->appendCssUrl("../css/style.css");
    $formHtml->appendContent($form);
    echo $formHtml->toHTML();
