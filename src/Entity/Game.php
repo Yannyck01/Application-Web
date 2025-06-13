@@ -224,12 +224,11 @@ SQL);
 
     public function update( ) : Game
     {
-        $requestUpdt = MyPdo::getInstance()->prepare(<<<'SQL'
-        UPDATE game SET name = :name, metacritic = :meta, developperId = :devId,
-                        price = : price, shortDescription = :desc
+        $sql = MyPdo::getInstance()->prepare(<<<SQL
+        UPDATE game SET name = :name, releaseYear = :year, shortDescription = :desc, price = :price, windows = :windows, linux = :linux, mac = :mac, metacritic = :metacritic, developerId = :devId, posterId = :posterId
         WHERE id = :id 
     SQL);
-    $requestUpdt->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
     return $this;
     }
 
