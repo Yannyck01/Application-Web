@@ -2,11 +2,9 @@
 declare(strict_types=1);
 
 
-namespace Entity\form;
+namespace Entity\Form;
 
-use Entity\Exception\EntityNotFoundException;
 use Entity\Game;
-use Exception\ParameterException;
 
 class GameForm
 {
@@ -15,7 +13,7 @@ class GameForm
     /**
      * @param Game|null $game
      */
-    public function __construct(?Game $game)
+    public function __construct(?Game $game = null)
     {
         $this->game = $game;
     }
@@ -80,43 +78,25 @@ class GameForm
     HTML;
     }
 
-
-    public function setFromQueryString(): void
+    public function setEntityFromQueryString(): void
     {
-        if(isset($_POST['id']) && is_numeric($_POST['id'])){
-            $id = (int) $_POST['id'];
-        }
-        else {
+        if (isset($_POST['id']) && is_numeric($_POST['id'])) {
+            $id = (int)$_POST['id'];
+        } else {
             $id = null;
         }
 
-        if(empty($_POST['game__name'])) {
-            throw new ParameterException(("Le nom ne correspond à aucun jeu"));
-        }
+        $name = $_POST['name'];
+        $grade=(int)$_POST['grade'];
+        $price=(int)$_POST['price'];
+        $desc=$_POST['desc'];
+        $posterId =(int)$_POST['posterId'];
+        $devId=(int)$_POST['devId'];
+        $mac=(int)$_POST['mac'];
+        $linux=(int)$_POST['linux'];
+        $windows=(int)$_POST['windows'];
+        $year=(int)$_POST['year'];
 
-        if(empty($_POST['desc'])) {
-            throw new ParameterException(("La description ne correspond à aucun jeu"));
-        }
-
-        if(isset($_POST['price__euro']) && is_numeric($_POST['price__euro'])){
-            $price = (int) $_POST['price__euro'];
-        }
-        else {
-            $price = null;
-        }
-
-        if(isset($_POST['grade__100']) && is_numeric($_POST['grade__100'])){
-            $grade = (int) $_POST['grade__100'];
-        }
-        else {
-            $grade = null;
-        }
-
-
-        $this->game = (new Game)->create();
-
+        $this->game = Game::create($id,$name,$year,$desc,$price,$windows,$linux,$mac,$grade,$devId,$posterId);
     }
-
-
-
 }
