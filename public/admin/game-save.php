@@ -2,11 +2,13 @@
 declare(strict_types=1);
 
 
+use Entity\Form\GameForm;
+
 try {
-    $gameForm = new \Entity\form\GameForm();
-    $gameForm->setFromQueryString();
+    $gameForm = new GameForm();
+    $gameForm->setEntityFromQueryString();
     $gameForm->getGame()->save();
-    header("Location index.php");
+    header("Location: /index.php");
 } catch(\Exception\ParameterException) {
     http_response_code(400);
     echo "L'un des champs nécessaire à la création du jeu n'est pas renseigné";
