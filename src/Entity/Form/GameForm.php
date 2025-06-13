@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Entity\Form;
 
+use Entity\Collection\DeveloperCollection;
+use Entity\Developer;
 use Entity\Game;
 use Exception\ParameterException;
 
@@ -34,8 +36,8 @@ class GameForm
         $linux = $this->game?->getLinux() ? 'checked' : '';
         $windows = $this->game?->getWindows() ? 'checked' : '';
 
-        return <<<HTML
-    <div class="header">
+        $form=<<<HTML
+        <div class="header">
         <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
         <a href="../index.php" class="homepage">
                 <button class ='homepage' type='button' >
@@ -46,81 +48,93 @@ class GameForm
                 </button>
             </a>
         <h1>Création / Modification d'un nouveau jeu</h1>
-    </div>
-    <style>
-        .container {
-            display: flex;
-            width: 99%;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-        .container label {
-            font-family: 'Lexend', sans-serif;
-            display: flex;
-            flex-direction: column;
-            font-weight: bold;
-            gap: 5px;
-            width: 60%;
+        </div>
+        <style>
+            .container {
+                display: flex;
+                width: 99%;
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            .container label {
+                font-family: 'Lexend', sans-serif;
+                display: flex;
+                flex-direction: column;
+                font-weight: bold;
+                gap: 5px;
+                width: 60%;
+                
+            }
             
-        }
+            
+            
+            
+            .container input[type="text"],
+            .container input[type="number"],
+            .container textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+            .checkbox-group {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+            }
+            .checkbox-group label {
+                flex-direction: row;
+                align-items: center;
+                gap: 5px;
+                font-weight: normal;
+            }
+            .update-button {
+                padding-top: 2rem;
+                width: 100%;
+            }
+        </style>
         
-        
-        
-        
-        .container input[type="text"],
-        .container input[type="number"],
-        .container textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .checkbox-group {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .checkbox-group label {
-            flex-direction: row;
-            align-items: center;
-            gap: 5px;
-            font-weight: normal;
-        }
-        .update-button {
-            padding-top: 2rem;
-            width: 100%;
-        }
-    </style>
-    
-    <form name="gameForm" action="$action" method="POST" class="game__form">
-        <div class="container">
-            <label>
-                Nom :
-                <input name="name" type="text" placeholder="Nom" value="{$this->game?->getName()}">
-            </label>
-            <input name="id" type="hidden" value="{$this->game?->getId()}">
-            <label>
-                Description :
-                <textarea name="desc" placeholder="Description">{$this->game?->getShortDescription()}</textarea>
-            </label>
-            <label>
-                Prix :
-                <input name="price" type="number" placeholder="Prix" value="{$this->game?->getPrice()}">
-            </label>
-            <label>
-                Note sur 100 :
-                <input name="grade" type="number" placeholder="Note sur 100" value="{$this->game?->getMetacritic()}">
-            </label>
-            <label>
-                Id Développeur :
-                <input name="devId" type="number" placeholder="Id Développeur" value="{$this->game?->getDeveloperId()}">
-            </label>
+        <form name="gameForm" action="$action" method="POST" class="game__form">
+            <div class="container">
+                <label>
+                    Nom :
+                    <input name="name" type="text" placeholder="Nom" value="{$this->game?->getName()}">
+                </label>
+                <input name="id" type="hidden" value="{$this->game?->getId()}">
+                <label>
+                    Description :
+                    <textarea name="desc" placeholder="Description">{$this->game?->getShortDescription()}</textarea>
+                </label>
+                <label>
+                    Prix :
+                    <input name="price" type="number" placeholder="Prix" value="{$this->game?->getPrice()}">
+                </label>
+                <label>
+                    Note sur 100 :
+                    <input name="grade" type="number" placeholder="Note sur 100" value="{$this->game?->getMetacritic()}">
+                </label>
+                <label>
+                    Développeur :
+                    <select name="devId" required>
+                        <option value="">-- Sélectionnez un développeur --</option>
+HTML;
 
+        $developers=Developer::findAll();
+        foreach ($developers as $developer) {
+            $id = $developer->getId();
+            $name = $developer->getName();
+            $selected = ($id === $this->game?->getDeveloperId()) ? 'selected' : '';
+            $form .= "<option value=\"$id\" $selected>$name</option>";
+        }
+
+        $form .= <<<HTML
+    </select>
+</label>
             <div class="checkbox-group">
                 <label>Disponible sur :</label> 
                 <label><input type="checkbox" name="mac" value="1" {$mac}> Mac</label>
@@ -139,6 +153,7 @@ class GameForm
         </div>
     </form>
 HTML;
+        return $form;
     }
 
     public function setEntityFromQueryString(): void
