@@ -37,6 +37,11 @@ $webPage->appendContent(<<<HTML
     </a>
         <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
     </div>
+    <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');" style="display:inline;">
+        <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            Supprimer
+        </button>
+    </form>
 HTML);
 $webPage->appendContent('<div class="list">');
 $priceEuro=$game->getPrice()/10;
@@ -57,8 +62,9 @@ $webPage->appendContent(<<<HTML
             <div class="gameD__price">{$priceEuro}€</div>
         </div>
     </div>
-    
+    <div class="desc">
     <div class="gameD__desc">{$game->getShortDescription()}</div>
+    </div>
 HTML);
 
 $genres=GenreCollection::findByGameId((int) $gameId);
