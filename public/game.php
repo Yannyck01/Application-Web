@@ -44,44 +44,54 @@ $webPage->appendContent(<<<HTML
     </form>
 HTML);
 $webPage->appendContent('<div class="list">');
-$priceEuro=$game->getPrice()/10;
+$priceEuro=$game->getPrice()/100;
 $dev = Developer::findById($game->getDeveloperId());
 
-
-
 $webPage->appendContent(<<<HTML
-    <div class="gameD__container">
-        <div class="gameD__cover">
-            <img src="poster.php?posterId={$game->getPosterId()}">
-            <div class="gameD__dev">{$dev->getName()}</div>
-        </div>
+<div class="gameD__container">
+  <div class="gameD__left">
+    <div class="gameD__poster">
+      <img src="poster.php?posterId={$game->getPosterId()}" alt="Affiche du jeu">
     </div>
-    <div class="gameD__infos">
-        <div class="gameD__topline">
-            <div class="gameD__note">{$game->getMetacritic()}/100</div>
-            <div class="gameD__price">{$priceEuro}€</div>
-        </div>
+
+    <div class="gameD__platforms-year">
+      <div class="gameD__platforms">
+        <img src="img/windows-brands.svg" alt="Windows" class="platform-icon">
+        <img src="img/apple-brands.svg" alt="MacOs" class="platform-icon">
+        <img src="img/linux-brands.svg" alt="Linux" class="platform-icon">
+      </div>
+      <div class="gameD__year">{$game->getReleaseYear()}</div>
     </div>
-    <div class="desc">
+
+    <div class="gameD__dev">Développé par : {$webPage->escapeString($dev->getName())}</div>
+  </div>
+
+  <div class="gameD__right">
+    <div class="gameD__rating-price">
+      <div class="gameD__note">{$game->getMetacritic()}/100</div>
+      <div class="gameD__price">{$priceEuro}€</div>
+    </div>
     <div class="gameD__desc">{$game->getShortDescription()}</div>
-    </div>
+  </div>
+</div>
+
+<div class="gameD__genres-ctg">
+  <div class='gameD__genres'><h3>Genres :</h3><div class="gameD__genre-list">
 HTML);
 
 $genres=GenreCollection::findByGameId((int) $gameId);
-$webPage->appendContent("<div class='gameD__genres'><h3>Genres : </h3>");
-foreach ($genres as $genre){
-    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p></div>");
+foreach ($genres as $genre) {
+    $webPage->appendContent("<div class='gameD__genre'><p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p></div>");
 }
-
-$webPage->appendContent("</div>");
 
 $categories=CategoryCollection::findByGameId((int) $gameId);
-$webPage->appendContent("<div class='gameD__ctg'><h3>Catégories : </h3>");
+$webPage->appendContent("</div></div><div class='gameD__ctg'><h3>Catégories :</h3>");
+
 foreach ($categories as $category){
-    $webPage->appendContent("<div class='gameD__genre'>\n<p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p></div>");
+    $webPage->appendContent("<div class='gameD__genre'><p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p></div>");
 }
 
-$webPage->appendContent("</div>");
+$webPage->appendContent("</div></div></div>");
 
 
 echo $webPage->toHTML();
