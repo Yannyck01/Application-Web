@@ -38,11 +38,18 @@ $webPage->appendContent(<<<HTML
     </a>
         <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
     </div>
-    <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');" style="display:inline;">
-        <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-            Supprimer
-        </button>
-    </form>
+    <div class="gameD__button"
+        <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');">
+            <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Supprimer
+            </button>
+        </form>
+        <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
+            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Modifier
+            </button>
+        </form>
+    </div>
 HTML);
 $webPage->appendContent('<div class="list">');
 $priceEuro=$game->getPrice()/100;
