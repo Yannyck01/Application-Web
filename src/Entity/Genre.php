@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Exception\EntityNotFoundException;
 
 class Genre
 {
@@ -37,6 +38,9 @@ class Genre
         $sql->execute(["id" => $id]);
 
         $res=$sql->fetchObject(Genre::class);
+
+        if (!$res)
+            throw new EntityNotFoundException("Genre with ID $id not found");
 
         return $res;
     }
