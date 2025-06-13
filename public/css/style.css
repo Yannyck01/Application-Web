@@ -400,6 +400,54 @@ a.homepage {
     border-radius: 10px;
 }
 
+.gameD__button {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem auto;
+    flex-wrap: wrap;
+}
+
+.gameD__button form {
+    margin: 0;
+}
+
+.delete-button, .update-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button {
+    background-color: #d9534f;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+.no_game {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #e4e9ec;
+    background-color: rgba(133, 41, 41, 0.2);
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #953b3b;
+    border-radius: 6px;
+    text-align: center;
+    width: 99%;
+}
+
+
 @media (min-width: 1000px) {
     .list__genre {
         flex-direction: row;
