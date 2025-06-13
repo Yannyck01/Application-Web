@@ -9,7 +9,7 @@ use PDO;
 
 class Game
 {
-    private int $id;
+    private ?int $id;
     private string $name;
     protected int $releaseYear;
     private string $shortDescription;
@@ -21,12 +21,12 @@ class Game
     protected ?int $developerId;
     protected int $posterId;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -188,5 +188,16 @@ SQL);
             throw new EntityNotFoundException("The game id $id does not match any game");
         }
         return $res;
+    }
+
+    public function delete(): Game
+    {
+        $sql = MyPdo::getInstance()->prepare("DELETE FROM game WHERE id = :id");
+
+        $sql->execute([":id"=>$this->id]);
+
+        $this->setId(null);
+
+        return $this;
     }
 }
