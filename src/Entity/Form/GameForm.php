@@ -45,13 +45,16 @@ class GameForm
         width: fit-content; 
         font-weight: bold;
         justify-content: center;
-        padding-bottom: 3rem;
+        padding-bottom: 1rem;
     }
     .container input {
         width: 100%; 
         padding: 8px; 
         border: 1px solid #ccc; 
         border-radius: 4px; 
+    }
+    .update-button {
+    padding-top: 2rem;
     }
         </style>
         <form name="gameForm"  action="$action" method="POST" class="game__form">
