@@ -18,8 +18,9 @@ if (isset($_GET['gameId']) && ctype_digit($_GET['gameId'])) {
 try{
     $game = Game::findById((int)$gameId);
 
-} catch(EntityNotFoundException $e) {
+} catch(EntityNotFoundException) {
     header('HTTP/1.1 404 Not Found');
+    echo "Jeu avec l'ID $gameId n'a pas été trouvé !";
     exit();
 }
 $webPage = new WebPage();
