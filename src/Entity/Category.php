@@ -38,6 +38,9 @@ class Category
 
         $res=$sql->fetchObject(Category::class);
 
+        if (!$res)
+            throw new EntityNotFoundException("Genre with ID $id not found");
+
         return $res;
     }
 
