@@ -21,6 +21,22 @@ class Game
     protected ?int $developerId;
     protected int $posterId;
 
+    /**
+     * @param int $posterId
+     * @param int|null $developerId
+     * @param int|null $metacritic
+     * @param int $mac
+     * @param int $linux
+     * @param int $windows
+     * @param int $price
+     * @param string $shortDescription
+     * @param int $releaseYear
+     * @param string $name
+     * @param int|null $id
+     */
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -194,4 +210,39 @@ SQL);
 
         return $this;
     }
+
+    public function update( ) : Game
+    {
+        $requestUpdt = MyPdo::getInstance()->prepare(<<<'SQL'
+        UPDATE game SET name = :name, metacritic = :meta, developperId = :devId,
+                        price = : price, shortDescription = :desc
+        WHERE id = :id 
+    SQL);
+    $requestUpdt->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+    return $this;
+    }
+
+    public function create() : Game
+    {
+        $createRequest = MyPdo::getInstance()->prepare(<<< SQL
+        INSERT INTO game ('name','shortDescription','price','developperId','metacritic')
+        VALUES           ( :name, :shortDescription, :price, :developperId, :metacritic)
+
+    SQL);
+        $createRequest->execute(["name"=>$this->name,":meta"=>$this->metacritic,":price"=>$this->price,":desc"=>$this->shortDescription]);
+        $this->setId((int)MyPdo::getInstance()->lastInsertId());
+
+    }
+
+    public function save() {
+        if($this->id == null){
+            $this->create();
+        }
+        else {
+            $this->update();
+        }
+
+    }
+
+
 }
