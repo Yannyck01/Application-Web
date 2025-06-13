@@ -38,11 +38,18 @@ $webPage->appendContent(<<<HTML
     </a>
         <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
     </div>
-    <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');" style="display:inline;">
-        <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-            Supprimer
-        </button>
-    </form>
+    <div class="gameD__button"
+        <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');">
+            <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Supprimer
+            </button>
+        </form>
+        <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
+            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Modifier
+            </button>
+        </form>
+    </div>
 HTML);
 $webPage->appendContent('<div class="list">');
 $priceEuro=$game->getPrice()/100;
@@ -54,12 +61,19 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__poster">
       <img src="poster.php?posterId={$game->getPosterId()}" alt="Affiche du jeu">
     </div>
-
     <div class="gameD__platforms-year">
-      <div class="gameD__platforms">
-        <img src="img/windows-brands.svg" alt="Windows" class="platform-icon">
-        <img src="img/apple-brands.svg" alt="MacOs" class="platform-icon">
-        <img src="img/linux-brands.svg" alt="Linux" class="platform-icon">
+        <div class="gameD__platforms">
+HTML);
+if ($game->getWindows()) {
+    $webPage->appendContent('<img src="img/windows-brands.svg" alt="Windows" class="platform-icon">');
+}
+if ($game->getMac()) {
+    $webPage->appendContent('<img src="img/apple-brands.svg" alt="MacOs" class="platform-icon">');
+}
+if ($game->getLinux()) {
+    $webPage->appendContent('<img src="img/linux-brands.svg" alt="Linux" class="platform-icon">');
+}
+$webPage->appendContent(<<<HTML
       </div>
       <div class="gameD__year">{$game->getReleaseYear()}</div>
     </div>
@@ -69,8 +83,21 @@ $webPage->appendContent(<<<HTML
 
   <div class="gameD__right">
     <div class="gameD__rating-price">
-      <div class="gameD__note">{$game->getMetacritic()}/100</div>
-      <div class="gameD__price">{$priceEuro}€</div>
+HTML);
+
+if (empty($game->getMetacritic()))
+    $webPage->appendContent("<div class='gameD__note'>Pas de note</div>");
+else
+    $webPage->appendContent("<div class='gameD__note'>{$game->getMetacritic()}/100</div>");
+
+
+if ($priceEuro == 0){
+    $webPage->appendContent("<div class='gameD__price'>Gratuit</div>");
+} else {
+    $webPage->appendContent("<div class='gameD__price'>{$priceEuro}€</div>");
+}
+
+$webPage->appendContent(<<<HTML
     </div>
     <div class="gameD__desc">{$game->getShortDescription()}</div>
   </div>
