@@ -227,18 +227,18 @@ SQL);
     public function update(): Game
     {
         $sql = MyPdo::getInstance()->prepare(<<<SQL
-        UPDATE game SET name = :name, releaseYear = :year, shortDescription = :desc, price = :price, windows = :windows, linux = :linux, mac = :mac, metacritic = :metacritic, developerId = :devId, posterId = :posterId
+        UPDATE game SET name = :name, releaseYear = :year, shortDescription = :desc, price = :price, windows = :windows, linux = :linux, mac = :mac, metacritic = :metacritic, developerId = :devId
         WHERE id = :id 
     SQL);
-        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId,"posterId" => $this->posterId]);
+        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId]);
         return $this;
     }
 
     public function insert(): Game
     {
-        $sql = MyPdo::getInstance()->prepare("INSERT INTO game VALUES (:id, :name, :year, :desc, :price, :windows, :linux, :mac, :metacritic, :devId, :posterId)");
+        $sql = MyPdo::getInstance()->prepare("INSERT INTO game (id, name, releaseYear, shortDescription, price, windows, linux, mac, metacritic, developerId) VALUES (:id, :name, :year, :desc, :price, :windows, :linux, :mac, :metacritic, :devId)");
 
-        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId,"posterId" => $this->posterId]);
+        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId]);
 
         $this->setId((int)MyPdo::getInstance()->lastInsertId());
 
@@ -255,9 +255,9 @@ SQL);
         return $this;
     }
 
-    public static function create(?int $id = null, string $name, int $year, string $desc, ?int $price, int $windows, int $linux, int $mac, ?int $metacritic, ?int $devId, ?int $posterId)
+    public static function create(?int $id = null, string $name, int $year, string $desc, ?int $price, int $windows, int $linux, int $mac, ?int $metacritic, ?int $devId)
     {
-        return (new Game())->setId($id)->setName($name)->setReleaseYear($year)->setShortDescription($desc)->setPrice($price)->setWindows($windows)->setLinux($linux)->setMac($mac)->setMetacritic($metacritic)->setDeveloperId($devId)->setPosterId($posterId);
+        return (new Game())->setId($id)->setName($name)->setReleaseYear($year)->setShortDescription($desc)->setPrice($price)->setWindows($windows)->setLinux($linux)->setMac($mac)->setMetacritic($metacritic)->setDeveloperId($devId);
     }
 
 
