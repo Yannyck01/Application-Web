@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Entity\Exception\EntityNotFoundException;
@@ -7,9 +8,8 @@ use Entity\Game;
 use Exception\ParameterException;
 use Html\WebPage;
 
-
 try {
-    if(!isset($_GET['gameId'])) {
+    if (!isset($_GET['gameId'])) {
         $game = null;
     } else {
         if (!is_numeric($_GET['gameId'])) {
@@ -18,13 +18,13 @@ try {
         $id = (int) $_GET['gameId'];
         $game = Game::findById($id);
 
-}
-   $gameForm = new GameForm($game);
-   $form = $gameForm->getHtmlForm("game-save.php");
-   $formHtml=new WebPage("Création / Modification d'un nouveau jeu");
-   $formHtml->appendCssUrl("../css/style.css");
-   $formHtml->appendContent($form);
-   echo $formHtml->toHTML();
+    }
+    $gameForm = new GameForm($game);
+    $form = $gameForm->getHtmlForm("game-save.php");
+    $formHtml = new WebPage("Création / Modification d'un nouveau jeu");
+    $formHtml->appendCssUrl("../css/style.css");
+    $formHtml->appendContent($form);
+    echo $formHtml->toHTML();
 
 } catch (ParameterException) {
     http_response_code(400);
@@ -34,4 +34,3 @@ try {
 } catch (Exception) {
     http_response_code(500);
 }
-

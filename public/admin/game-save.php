@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 
@@ -9,7 +10,7 @@ try {
     $gameForm->setEntityFromQueryString();
     $gameForm->getGame()->save();
     header("Location: /index.php");
-} catch(\Exception\ParameterException) {
+} catch (\Exception\ParameterException) {
     http_response_code(400);
     echo "L'un des champs nécessaire à la création du jeu n'est pas renseigné";
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Entity\Exception\EntityNotFoundException;
@@ -14,19 +15,19 @@ if (isset($_GET['genreId']) && ctype_digit($_GET['genreId'])) {
 }
 
 try {
-    $genreObject=Genre::findById((int) $genreId);
-} catch (EntityNotFoundException){
+    $genreObject = Genre::findById((int) $genreId);
+} catch (EntityNotFoundException) {
     header('HTTP/1.1 404 Not Found');
     echo "Genre avec l'ID $genreId n'a pas été trouvé !";
     exit();
 }
 
-$games=Game::findByGenreId((int)$genreId);
+$games = Game::findByGenreId((int)$genreId);
 $webPage = new WebPage();
 $webPage->setTitle("Jeux vidéo : {$genreObject->getDescription()}");
 $webPage->appendCssUrl("css/style.css");
 
-if (!$games){
+if (!$games) {
     $webPage->appendContent(<<<HTML
     <div class='header'> 
         <a href="index.php" class="homepage">
@@ -78,7 +79,8 @@ foreach ($games as $game) {
     $title = $webPage->escapeString($game->getName());
     $posterId = $game->getPosterId();
     $description = $game->getShortDescription();
-    $webPage->appendContent(<<<HTML
+    $webPage->appendContent(
+        <<<HTML
                 <div class="game" onclick="window.location.href='game.php?gameId={$game->getId()}';" style="cursor: pointer;" data-title="{$title}" data-year="{$year}">
                     <div class="game__cover"><img src="poster.php?posterId=$posterId"></div>
                     <div class="game__details">
@@ -117,4 +119,3 @@ $webPage->appendContent(<<<JS
 </script>
 JS);
 echo $webPage->toHTML();
-

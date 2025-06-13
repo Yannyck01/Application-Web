@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Entity\Form;
 
@@ -153,29 +153,29 @@ HTML;
             $id = null;
         }
 
-        if (empty($_POST['name'])){
+        if (empty($_POST['name'])) {
             throw new ParameterException("The name of game is required");
         }
 
-        if (empty($_POST['year'])){
+        if (empty($_POST['year'])) {
             throw new ParameterException("The year of game is required");
         }
 
-        if (empty($_POST['desc'])){
+        if (empty($_POST['desc'])) {
             throw new ParameterException("The description of game is required");
         }
 
         $name = $_POST['name'];
-        $grade=(int)$_POST['grade'];
-        $price=(int)$_POST['price'];
-        $desc=$_POST['desc'];
+        $grade = (int)$_POST['grade'];
+        $price = (int)$_POST['price'];
+        $desc = $_POST['desc'];
         $posterId  = isset($_POST['posterId']) ? (int)$_POST['posterId'] : 1;
-        $devId=(int)$_POST['devId'];
-        $year=(int)$_POST['year'];
+        $devId = (int)$_POST['devId'];
+        $year = (int)$_POST['year'];
         $mac = isset($_POST['mac']) ? 1 : 0;
         $linux = isset($_POST['linux']) ? 1 : 0;
         $windows = isset($_POST['windows']) ? 1 : 0;
 
-        $this->game = Game::create($id,$name,$year,$desc,$price,$windows,$linux,$mac,$grade,$devId,$posterId);
+        $this->game = Game::create($id, $name, $year, $desc, $price, $windows, $linux, $mac, $grade, $devId, $posterId);
     }
 }

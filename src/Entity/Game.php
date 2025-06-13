@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Entity;
@@ -164,7 +165,8 @@ class Game
      */
     public static function findByGenreId(int $genreId): array
     {
-        $request = MyPdo::getInstance()->prepare(<<< SQL
+        $request = MyPdo::getInstance()->prepare(
+            <<< SQL
             SELECT *
             FROM game g 
             JOIN game_genre gg ON g.id=gg.gameId
@@ -172,7 +174,7 @@ class Game
             SQL
         );
         $request->execute([":id" => $genreId]);
-        $res=$request->fetchAll(PDO::FETCH_CLASS,Game::class);
+        $res = $request->fetchAll(PDO::FETCH_CLASS, Game::class);
 
         return $res;
     }
@@ -186,8 +188,8 @@ class Game
         WHERE categoryId = :idCtg
 
 SQL);
-        $requestCtg->execute([":idCtg"=> $categoryId]);
-        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS,Game::class);
+        $requestCtg->execute([":idCtg" => $categoryId]);
+        $res = $requestCtg->fetchAll(PDO::FETCH_CLASS, Game::class);
 
         return $res;
 
@@ -195,14 +197,14 @@ SQL);
 
     public static function findById(int $id): Game
     {
-        $requestId = MyPdo::getInstance()->prepare( <<< 'SQL'
+        $requestId = MyPdo::getInstance()->prepare(<<< 'SQL'
             SELECT id, name, releaseYear, shortDescription, price,
                    windows, linux, mac,metacritic, developerId, posterId
             FROM game
             WHERE id = :id
             
         SQL);
-        $requestId->execute([":id"=> $id]);
+        $requestId->execute([":id" => $id]);
         $res = $requestId->fetchObject(Game::class);
 
         if (!$res) {
@@ -215,28 +217,28 @@ SQL);
     {
         $sql = MyPdo::getInstance()->prepare("DELETE FROM game WHERE id = :id");
 
-        $sql->execute([":id"=>$this->id]);
+        $sql->execute([":id" => $this->id]);
 
         $this->setId(null);
 
         return $this;
     }
 
-    public function update( ) : Game
+    public function update(): Game
     {
         $sql = MyPdo::getInstance()->prepare(<<<SQL
         UPDATE game SET name = :name, releaseYear = :year, shortDescription = :desc, price = :price, windows = :windows, linux = :linux, mac = :mac, metacritic = :metacritic, developerId = :devId, posterId = :posterId
         WHERE id = :id 
     SQL);
-        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
-    return $this;
+        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId,"posterId" => $this->posterId]);
+        return $this;
     }
 
     public function insert(): Game
     {
         $sql = MyPdo::getInstance()->prepare("INSERT INTO game VALUES (:id, :name, :year, :desc, :price, :windows, :linux, :mac, :metacritic, :devId, :posterId)");
 
-        $sql->execute(["id"=>$this->id,"name"=>$this->name,"year"=>$this->releaseYear,"desc"=>$this->shortDescription,"price"=>$this->price,"windows"=>$this->windows,"linux"=>$this->linux,"mac"=>$this->mac,"metacritic"=>$this->metacritic,"devId"=>$this->developerId,"posterId"=>$this->posterId]);
+        $sql->execute(["id" => $this->id,"name" => $this->name,"year" => $this->releaseYear,"desc" => $this->shortDescription,"price" => $this->price,"windows" => $this->windows,"linux" => $this->linux,"mac" => $this->mac,"metacritic" => $this->metacritic,"devId" => $this->developerId,"posterId" => $this->posterId]);
 
         $this->setId((int)MyPdo::getInstance()->lastInsertId());
 
@@ -245,10 +247,9 @@ SQL);
 
     public function save(): Game
     {
-        if($this->id == null){
+        if ($this->id == null) {
             $this->insert();
-        }
-        else {
+        } else {
             $this->update();
         }
         return $this;

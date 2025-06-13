@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Entity\Collection\CategoryCollection;
@@ -15,10 +16,10 @@ if (isset($_GET['gameId']) && ctype_digit($_GET['gameId'])) {
     exit();
 }
 
-try{
+try {
     $game = Game::findById((int)$gameId);
 
-} catch(EntityNotFoundException) {
+} catch (EntityNotFoundException) {
     header('HTTP/1.1 404 Not Found');
     echo "Jeu avec l'ID $gameId n'a pas été trouvé !";
     exit();
@@ -52,7 +53,7 @@ $webPage->appendContent(<<<HTML
     </div>
 HTML);
 $webPage->appendContent('<div class="list">');
-$priceEuro=$game->getPrice()/100;
+$priceEuro = $game->getPrice() / 100;
 $dev = Developer::findById($game->getDeveloperId());
 
 $webPage->appendContent(<<<HTML
@@ -85,13 +86,14 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__rating-price">
 HTML);
 
-if (empty($game->getMetacritic()))
+if (empty($game->getMetacritic())) {
     $webPage->appendContent("<div class='gameD__note'>Pas de note</div>");
-else
+} else {
     $webPage->appendContent("<div class='gameD__note'>{$game->getMetacritic()}/100</div>");
+}
 
 
-if ($priceEuro == 0){
+if ($priceEuro == 0) {
     $webPage->appendContent("<div class='gameD__price'>Gratuit</div>");
 } else {
     $webPage->appendContent("<div class='gameD__price'>{$priceEuro}€</div>");
@@ -107,15 +109,15 @@ $webPage->appendContent(<<<HTML
   <div class='gameD__genres'><h3>Genres :</h3><div class="gameD__genre-list">
 HTML);
 
-$genres=GenreCollection::findByGameId((int) $gameId);
+$genres = GenreCollection::findByGameId((int) $gameId);
 foreach ($genres as $genre) {
     $webPage->appendContent("<div class='gameD__genre'><p><a href='genre.php?genreId={$genre->getId()}'>{$webPage->escapeString($genre->getDescription())}</a></p></div>");
 }
 
-$categories=CategoryCollection::findByGameId((int) $gameId);
+$categories = CategoryCollection::findByGameId((int) $gameId);
 $webPage->appendContent("</div></div><div class='gameD__ctg'><h3>Catégories :</h3>");
 
-foreach ($categories as $category){
+foreach ($categories as $category) {
     $webPage->appendContent("<div class='gameD__genre'><p><a href='category.php?idCtg={$category->getId()}'>{$webPage->escapeString($category->getDescription())}</a></p></div>");
 }
 
