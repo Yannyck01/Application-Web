@@ -33,6 +33,27 @@ class GameForm
         <div class="header">
             <h1>Création d'un nouveau jeu</h1>
         </div>
+        <style>
+            .container {
+        display: flex ;
+        flex-direction: column ; 
+        gap: 20px ; 
+    }
+    .container label {
+        display: flex ; 
+        flex-direction: column; 
+        width: fit-content; 
+        font-weight: bold;
+        justify-content: center;
+        padding-bottom: 3rem;
+    }
+    .container input {
+        width: 100%; 
+        padding: 8px; 
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+    }
+        </style>
         <form name="gameForm"  action="$action" method="POST" class="game__form">
             <div class="container">
                 <h1></h1>
