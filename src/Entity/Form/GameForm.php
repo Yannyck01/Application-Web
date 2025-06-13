@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Entity\Form;
 
 use Entity\Game;
+use Exception\ParameterException;
 
 class GameForm
 {
@@ -120,9 +121,9 @@ class GameForm
             <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
                 Enregistrer
             </button>
-        </form>
-
-    HTML;
+        </div>
+    </form>
+HTML;
     }
 
     public function setEntityFromQueryString(): void
@@ -133,16 +134,28 @@ class GameForm
             $id = null;
         }
 
+        if (empty($_POST['name'])){
+            throw new ParameterException("The name of game is required");
+        }
+
+        if (empty($_POST['year'])){
+            throw new ParameterException("The year of game is required");
+        }
+
+        if (empty($_POST['desc'])){
+            throw new ParameterException("The description of game is required");
+        }
+
         $name = $_POST['name'];
         $grade=(int)$_POST['grade'];
         $price=(int)$_POST['price'];
         $desc=$_POST['desc'];
-        $posterId =(int)$_POST['posterId'];
+        $posterId  = isset($_POST['posterId']) ? (int)$_POST['posterId'] : 1;
         $devId=(int)$_POST['devId'];
-        $mac=(int)$_POST['mac'];
-        $linux=(int)$_POST['linux'];
-        $windows=(int)$_POST['windows'];
         $year=(int)$_POST['year'];
+        $mac = isset($_POST['mac']) ? 1 : 0;
+        $linux = isset($_POST['linux']) ? 1 : 0;
+        $windows = isset($_POST['windows']) ? 1 : 0;
 
         $this->game = Game::create($id,$name,$year,$desc,$price,$windows,$linux,$mac,$grade,$devId,$posterId);
     }
