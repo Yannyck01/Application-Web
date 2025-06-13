@@ -242,6 +242,13 @@ SQL);
 
     }
 
+    public function save() {
+        if(isset($this->id)){
+            $this->update();
+        }
+        else {
+            $this->create();
+        }
 
     }
 }
