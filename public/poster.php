@@ -24,6 +24,7 @@ try {
 } catch (ParameterException) {
     http_response_code(400);
 } catch (EntityNotFoundException) {
+    header('Location: img/game.jpg');
     http_response_code(404);
 } catch (Exception) {
     http_response_code(500);
