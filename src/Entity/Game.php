@@ -235,12 +235,14 @@ SQL);
     }
 
     public function save() {
-        if(isset($this->id)){
-            $this->update();
+        if($this->id == null){
+            $this->create();
         }
         else {
-            $this->create();
+            $this->update();
         }
 
     }
+
+
 }
