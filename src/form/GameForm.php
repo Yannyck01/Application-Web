@@ -42,10 +42,10 @@ class GameForm {
                     <input name="desc" type="text" placeholder="Description" value="desc">
                 </label>
                 <label>
-                    <input name="price" type="number" placeholder="price in euro" value="price">
+                    <input name="price__euro" type="number" placeholder="price in euro" value="price">
                 </label>
                 <label>
-                    <input name="grade" type="number" placeholder="Grade out of 100" value="grade">
+                    <input name="grade__100" type="number" placeholder="Grade out of 100" value="grade">
                 </label>
             </div>
         </form>
@@ -55,8 +55,11 @@ class GameForm {
     }
 
     public function setFromQueryQString() {
-
         $name = $_POST['game__name'];
+        $id = $_POST['id'];
+        $description = $_POST['desc'];
+        $price = $_POST['price__euro'];
+        $grade = $_POST['grade__100'];
         $this->game = new Game();
 
     }
