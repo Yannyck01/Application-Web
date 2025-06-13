@@ -24,7 +24,7 @@ try{
     exit();
 }
 $webPage = new WebPage();
-$webPage->setTitle("Jeux vidéo : {$webPage->escapeString($game->getName())}");
+$webPage->setTitle("Jeux vidéo : {$game->getName()}");
 $webPage->appendCssUrl("css/style.css");
 $webPage->appendContent(<<<HTML
     <div class='header'> 
@@ -38,14 +38,14 @@ $webPage->appendContent(<<<HTML
     </a>
         <h1>Jeux vidéo : {$webPage->escapeString($game->getName())}</h1>
     </div>
-    <div class="gameD__button"
+    <div class="gameD__button">
         <form method="POST" action="admin/game-delete.php?gameId={$game->getId()}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.');">
-            <button type="submit" class="delete-button" style="background-color: #d9534f; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <button type="submit" class="delete-button">
                 Supprimer
             </button>
         </form>
         <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
-            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <button type="submit" class="update-button">
                 Modifier
             </button>
         </form>
@@ -61,11 +61,6 @@ $webPage->appendContent(<<<HTML
     <div class="gameD__poster">
       <img src="poster.php?posterId={$game->getPosterId()}" alt="Affiche du jeu">
     </div>
-    <form method="POST" action="admin/game-form.php?gameId={$game->getId()}">
-            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-                Modifier
-            </button>
-        </form>
     <div class="gameD__platforms-year">
         <div class="gameD__platforms">
 HTML);

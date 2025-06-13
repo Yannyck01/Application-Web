@@ -24,7 +24,7 @@ try {
 
 $category = Game::findByCategoryId((int)$categoryId);
 $categoryPage = new WebPage();
-$categoryPage->setTitle("Jeux vidéo : {$categoryPage->escapeString($catObject->getDescription())}");
+$categoryPage->setTitle("Jeux vidéo : {$catObject->getDescription()}");
 $categoryPage->appendCssUrl("css/style.css");
 
 if (!$category){

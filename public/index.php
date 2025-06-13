@@ -6,7 +6,7 @@ use Entity\Collection\CategoryCollection;
 use Entity\Collection\GenreCollection;
 use Html\WebPage;
 
-$pageTest = new WebPage("Page d'accueil");
+$pageTest = new WebPage("Jeux vidéo");
 $pageTest->appendCssUrl("css/style.css");
 
 $pageTest->appendContent(<<<HTML

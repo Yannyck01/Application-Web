@@ -23,7 +23,7 @@ try {
 
 $games=Game::findByGenreId((int)$genreId);
 $webPage = new WebPage();
-$webPage->setTitle("Jeux vidéo : {$webPage->escapeString($genreObject->getDescription())}");
+$webPage->setTitle("Jeux vidéo : {$genreObject->getDescription()}");
 $webPage->appendCssUrl("css/style.css");
 
 if (!$games){
