@@ -89,7 +89,7 @@ class GameForm
         }
 
 
-        $this->game = new Game();
+        $this->game = (new Game)->create();
 
     }
 
