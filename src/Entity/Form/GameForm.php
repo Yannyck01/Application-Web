@@ -32,29 +32,52 @@ class GameForm
     public function getHtmlForm(string $action): string
     {
         return <<<HTML
+        <div class="header">
+            <h1>Création d'un nouveau jeu</h1>
+        </div>
         <form name="gameForm"  action="$action" method="POST">
             <div class="container">
-                <h1>Création d'un nouveau jeu</h1>
+                <h1></h1>
                 <label>
-                    <input name="game__name" type="text" placeholder="Game Name" value="{$this->game->getName()}">
+                    <input name="name" type="text" placeholder="Nom" value="{$this->game?->getName()}">
                 </label>
                 <label>
                     <input name="id" type="hidden" placeholder="ID" value="{$this->game?->getId()}">
                 </label>
                 <label>
-                    <input name="desc" type="text" placeholder="Description" value="{$this->game->getShortDescription()}">
+                    <input name="desc" type="text" placeholder="Description" value="{$this->game?->getShortDescription()}">
                 </label>
                 <label>
-                    <input name="price__euro" type="number" placeholder="price in euro" value="{$this->game->getPrice()}">
+                    <input name="price" type="number" placeholder="Prix" value="{$this->game?->getPrice()}">
                 </label>
                 <label>
-                    <input name="grade__100" type="number" placeholder="Grade out of 100" value="{$this->game->getMetacritic()}">
+                    <input name="grade" type="number" placeholder="Note sur 100" value="{$this->game?->getMetacritic()}">
+                </label>
+                <label>
+                    <input name="posterId" type="number" placeholder="Id Poster" value="{$this->game?->getPosterId()}">
+                </label>
+                <label>
+                    <input name="devId" type="number" placeholder="Id Développeur" value="{$this->game?->getDeveloperId()}">
+                </label>
+                <label>
+                    <input name="mac" type="number" placeholder="Mac" value="{$this->game?->getMac()}">
+                </label>
+                <label>
+                    <input name="linux" type="number" placeholder="Linux" value="{$this->game?->getLinux()}">
+                </label>
+                <label>
+                    <input name="windows" type="number" placeholder="Windows" value="{$this->game?->getWindows()}">
+                </label>
+                <label>
+                    <input name="year" type="number" placeholder="Année" value="{$this->game?->getReleaseYear()}">
                 </label>
             </div>
+            <button type="submit" class="update-button" style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                Enregistrer
+            </button>
         </form>
 
     HTML;
-
     }
 
 
